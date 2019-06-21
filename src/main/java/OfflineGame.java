@@ -1,8 +1,10 @@
 //File is created and maintained by a-elhawary 19/06/2019
+//OfflineGame class is responsible for the interaction between other classes, as it holds the instances
+//of the Players and Cards in the game.
 import java.util.*;
 
 public class OfflineGame {
-	private ArrayList<InGamePlayer> connectedPlayers;
+	private InGamePlayer connectedPlayers[4];
 	private int currentPlayerTurn;
 	private ArrayList<Card> graveyard;
 	private Stack cardPile;
@@ -47,22 +49,39 @@ public class OfflineGame {
 	}	
 	
 	private Stack formCardPile(){
-		//	TODO place actual return value
 		return null;
 	}
 	
+	// returns a Card object or null if the cardPile is empty
 	private Card getCardFromPile(){
-		//	TODO place actual return value
-		return null;
+		Card newCard = null;
+			
+		if(!cardPile.isEmpty){
+			newCard = cardPile.pop();
+		}
+	
+		// if the cardPile wasn't empty, but became empty, set graveardToPile to true 
+		// so that at the end of the turn resetPile will be called if the graveyard isn't empty;
+		if(cardPile.isEmpty()){
+			graveyardToPile = true;
+		}
+		return newCard;
 	}
 	
+	//method used in the constructor to distribute cards among the players at the start of each game
 	private void distributeCards(){
-		// loop 5 times (i)
-		// loop 4 times for each player (j)
-		// use getCardFromPile to get card
-		// add card to player at j index 
-		// endloop
-		// endloop
+		// Objects that will be used to temporarily store instances of players and cards 
+		Card currentCard = null;
+		InGamePlayer currentPlayer = null;
+		// Loop 5 times, so that each player would get five cards
+		for(int i = 0; i<5; i++){
+			// Loop 4 times, once for each Player
+			for(int j = 0; j<4; j++){
+				currentCard = getCardFromPile();
+				currentPlayer = connectedPlayers.get(j);
+				currentPlayer.addToHand(currentCard);			
+			}
+		}
 	}
 
 	public void endTradePhase(){
