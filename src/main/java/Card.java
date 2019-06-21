@@ -4,7 +4,12 @@ public class Card {
 	private double healthPoints;
 	private int activePerTurnEffect;
 	private int activeFullCycleEffect;
-	
+	private House house;
+
+	public void setShape(int shape){
+		house.setShape(shape);
+	}
+
 	public double getAttackPoints() {
 		return attackPoints;
 	}

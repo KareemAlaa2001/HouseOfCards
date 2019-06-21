@@ -8,4 +8,8 @@ public class House {
 
 	// the shape varible hold either House.CLUBS(0) --> House.SPADE(3)
 	public int shape;
+
+	public void setShape(int shape){
+		this.shape = shape;
+	}
 }

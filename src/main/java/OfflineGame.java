@@ -1,13 +1,15 @@
-//File is created and maintained by a-elhawary 19/06/2019
-//OfflineGame class is responsible for the interaction between other classes, as it holds the instances
-//of the Players and Cards in the game.
+/*File is created and maintained by a-elhawary 19/06/2019
+ *OfflineGame class is responsible for the interaction between other classes, as it holds the instances
+ *of the Players and Cards in the game.*/
 import java.util.*;
 
 public class OfflineGame {
-	private InGamePlayer connectedPlayers[4];
+	private static final int NUM_OF_PLAYERS = 4;
+
+	private InGamePlayer connectedPlayers[];
 	private int currentPlayerTurn;
 	private ArrayList<Card> graveyard;
-	private Stack cardPile;
+	private Stack<Card> cardPile;
 	private boolean changeInTurn;
 	private int turnsSinceLastChange;
 	private boolean graveyardToPile;
@@ -30,38 +32,53 @@ public class OfflineGame {
 
 	// takes in a list of cards and outputs a new list of cars
 	private ArrayList<Card> shuffle(ArrayList<Card> cards){
-		// get current size of list into numOfElements 
-		// create an array of booleans sized by numOfElements
-		// create a shuffledCards list with size numOfElements - 1
-		// set all of the array to false
-		// loop from 0 to numOfElements - 1
-		// generate a random number
-		// while the boolean list at the index of random number is true
-		// generate new random number
-		// endwhile
-		// set boolen list at random number to true
-		// shuffledCards at i = cards ar random number
-		// endloop
-		// return shuffledCards
-		
-		//	TODO place actual return value
-		return null;
+		// stores the number of elements of the deck before any change
+		int numOfElements = cards.size();
+		ArrayList<Card> shuffledCards = new ArrayList<Card>(numOfElements);
+		Random randGen = new Random();
+		int randomNum;
+		// stores the num of elements of the array as it changes
+		int range;
+		for(int i = 0; i < numOfElements; i++){
+			range = cards.size();
+			randomNum = randGen.nextInt(range);
+			shuffledCards.add(cards.get(randomNum));
+			cards.remove(randomNum);
+		}
+		return shuffledCards;		
 	}	
 	
-	private Stack formCardPile(){
-		return null;
+	private Stack<Card> formCardPile(){
+		//Generate an unshuffled card deck of the playable cards
+		ArrayList<Card> tempCardDeck = new ArrayList<Card>();
+		//there are four shapes and 10 cards per shape
+		for(int shape = 0; shape < 4; shape++){
+			for(int attackPoints = 1; attackPoints <= 10; attackPoints++){
+				Card card = new Card();
+				card.setAttackPoints(attackPoints);
+				card.setShape(shape);
+				tempCardDeck.add(card);
+			}  
+		}		
+		//shuffle the deck 
+		tempCardDeck = shuffle(tempCardDeck);
+		// add the shuffled items one by one into the cardPile
+		for(int i = 0; i < tempCardDeck.size(); i++){
+			cardPile.push(tempCardDeck.get(i));
+		}
+		tempCardDeck.clear();
 	}
 	
 	// returns a Card object or null if the cardPile is empty
 	private Card getCardFromPile(){
 		Card newCard = null;
 			
-		if(!cardPile.isEmpty){
+		if(!cardPile.isEmpty()){
 			newCard = cardPile.pop();
 		}
 	
-		// if the cardPile wasn't empty, but became empty, set graveardToPile to true 
-		// so that at the end of the turn resetPile will be called if the graveyard isn't empty;
+		/* if the cardPile wasn't empty, but became empty, set graveardToPile to true 
+		 so that at the end of the turn resetPile will be called if the graveyard isn't empty*/
 		if(cardPile.isEmpty()){
 			graveyardToPile = true;
 		}
@@ -76,9 +93,9 @@ public class OfflineGame {
 		// Loop 5 times, so that each player would get five cards
 		for(int i = 0; i<5; i++){
 			// Loop 4 times, once for each Player
-			for(int j = 0; j<4; j++){
+			for(int j = 0; j < NUM_OF_PLAYERS; j++){
 				currentCard = getCardFromPile();
-				currentPlayer = connectedPlayers.get(j);
+				currentPlayer = connectedPlayers[j];
 				currentPlayer.addToHand(currentCard);			
 			}
 		}
