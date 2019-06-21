@@ -41,14 +41,19 @@ public class OfflineGame {
 		// shuffledCards at i = cards ar random number
 		// endloop
 		// return shuffledCards
+		
+		//	TODO place actual return value
+		return null;
 	}	
 	
 	private Stack formCardPile(){
-		
+		//	TODO place actual return value
+		return null;
 	}
 	
 	private Card getCardFromPile(){
-
+		//	TODO place actual return value
+		return null;
 	}
 	
 	private void distributeCards(){
