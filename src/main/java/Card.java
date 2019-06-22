@@ -1,8 +1,17 @@
+//	TODO Mostafa you need to work on this class bro
 public class Card {
 	
+	//	models the card's attack points, usually unchanged 
 	private double attackPoints;
+	
+	//	models the card's health points
 	private double healthPoints;
+	
+	//	models the number by which the card's health changes every passing turn, no matter whose turn it is
 	private double activePerTurnEffect;
+	
+	/*	models the number by which the card's health changes every full cycle, where a cycle is completed every time
+	 * 	the turn of the person to whom the card's house belongs 	*/
 	private double activeFullCycleEffect;
 	private House house;
 
