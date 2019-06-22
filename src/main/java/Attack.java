@@ -7,17 +7,20 @@ public  class Attack {
 	private InGamePlayer defPlayer;
 	private Card defCard;
 
-	public Card getDefCard() {
-		return defCard;
-	}
-
-	public void setDefCard(Card defCard) {
-		this.defCard = defCard;
-	}
-	public Attack(Card atkCard, InGamePlayer atkPlayer) {
+	public Attack(Card atkCard, InGamePlayer atkPlayer, Card defCard) {
 		this.setAttackingCard(atkCard);
 		this.setAttackingPlayer(atkPlayer);
 		this.setAttackPoints(this.getAttackingCard().getAttackPoints());
+		this.setDefendingCard(defCard);
+		this.setDefendingPlayer(null);
+	}
+	
+	public Attack(Card atkCard, InGamePlayer atkPlayer, InGamePlayer defPlayer) {
+		this.setAttackingCard(atkCard);
+		this.setAttackingPlayer(atkPlayer);
+		this.setAttackPoints(this.getAttackingCard().getAttackPoints());
+		this.setDefendingCard(null);
+		this.setDefendingPlayer(defPlayer);
 	}
 	
 	public Card getAttackingCard() {
@@ -44,12 +47,28 @@ public  class Attack {
 		this.attackPoints = attackPoints;
 	}
 
-	public InGamePlayer getDefPlayer() {
-		return defPlayer;
+	public InGamePlayer getDefendingPlayer() {
+		try {
+			return defPlayer;
+		} catch (NullPointerException e) {
+			throw new IllegalArgumentException("No defending player, this attack is directed towards a card!");
+		}
 	}
 
-	public void setDefPlayer(InGamePlayer defPlayer) {
+	public void setDefendingPlayer(InGamePlayer defPlayer) {
 		this.defPlayer = defPlayer;
+	}
+	
+	public Card getDefendingCard() {
+		try {
+			return defCard;
+		} catch (NullPointerException e) {
+			throw new IllegalArgumentException("No defending card, this attack is directed towards a player!");
+		}
+	}
+
+	public void setDefendingCard(Card defCard) {
+		this.defCard = defCard;
 	}
 }
 

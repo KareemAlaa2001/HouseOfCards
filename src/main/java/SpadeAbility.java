@@ -13,11 +13,12 @@ public class SpadeAbility extends Ability{
 
 	//  method to call ability, checks if attacking: adds attack damage if it is, reduces the damage if it isn't
 	@Override
-	public void callAbility(AbstractAttack atk) {
+	public void callAbility(Attack atk) {
 		if(isAttack) {
 			atk.setAttackPoints(atk.getAttackPoints() + this.getGeneralModifier());
 		} else {
 			atk.setAttackPoints(atk.getAttackPoints() * this.getGeneralModifier());
 		}
 	}
+	
 }

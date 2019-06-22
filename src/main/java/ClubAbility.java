@@ -16,7 +16,7 @@ public class ClubAbility extends Ability {
 	}
 	
 	@Override
-	public void callAbility(AbstractAttack atk) {
+	public void callAbility(Attack atk) {
 		atk.getAttackingCard().setHealthPoints(
 				atk.getAttackingCard().getHealthPoints() - atk.getAttackPoints()*this.getGeneralModifier());
 		
@@ -47,7 +47,7 @@ public class ClubAbility extends Ability {
 		this.isSelfDefence = isSelfDefense;
 	}
 
-
 }
 
 	
+

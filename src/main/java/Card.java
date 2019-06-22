@@ -2,8 +2,8 @@ public class Card {
 	
 	private double attackPoints;
 	private double healthPoints;
-	private int activePerTurnEffect;
-	private int activeFullCycleEffect;
+	private double activePerTurnEffect;
+	private double activeFullCycleEffect;
 	private House house;
 
 	public void setShape(int shape){
@@ -18,19 +18,19 @@ public class Card {
 		this.attackPoints = attackPoints;
 	}
 
-	public int getActiveFullCycleEffect() {
+	public double getActiveFullCycleEffect() {
 		return activeFullCycleEffect;
 	}
 
-	public void setActiveFullCycleEffect(int activeFullCycleEffect) {
+	public void setActiveFullCycleEffect(double activeFullCycleEffect) {
 		this.activeFullCycleEffect = activeFullCycleEffect;
 	}
 
-	public int getActivePerTurnEffect() {
+	public double getActivePerTurnEffect() {
 		return activePerTurnEffect;
 	}
 
-	public void setActivePerTurnEffect(int activePerTurnEffect) {
+	public void setActivePerTurnEffect(double activePerTurnEffect) {
 		this.activePerTurnEffect = activePerTurnEffect;
 	}
 
