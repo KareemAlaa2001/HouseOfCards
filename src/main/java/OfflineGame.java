@@ -67,6 +67,8 @@ public class OfflineGame {
 			cardPile.push(tempCardDeck.get(i));
 		}
 		tempCardDeck.clear();
+		//	TODO put real return value
+		return null;
 	}
 	
 	// returns a Card object or null if the cardPile is empty
