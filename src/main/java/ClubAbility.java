@@ -5,48 +5,75 @@
  * 	*/
 public class ClubAbility extends Ability {
 	
+	//	constant for queen lingering poison ability modifier where it reduces health by 1 every turn
 	public static final int QUEEN_MODIFIER = -1;
-	private boolean isPerTurn;
-	private boolean isSelfDefence;
 	
-	public ClubAbility(double genMod, boolean isPerTurn, boolean isSelfDefence) {
+	//	constant for general modifier applied in jack and king abilities
+	public static final double GENERAL_MODIFIER = 0.5;
+	
+	//	member boolean to check if jack is alive, queen ability is called if false
+	private boolean jackAlive;
+
+	//	member boolean to check if queen is alive, king ability called if false 
+	private boolean queenAlive;
+	
+	/*	Constructor for ClubAbility where general modifier and booleans for jackAlive and queenAlive are passed.
+	 *	general modifier isnt really used in this class. The 2 booleans decide which abilities are applied */
+	public ClubAbility(double genMod, boolean isJackAlive, boolean isQueenAlive) {
 		super(genMod);
-		this.setPerTurn(isPerTurn);
-		this.setSelfDefence(isSelfDefence);
+		this.setJackAlive(isJackAlive);
+		this.setQueenAlive(isQueenAlive);
 	}
 	
+	/*	club implementation for calling the house ability. Applies jack ability, then if jack dead applies queen ability
+	 *	and if queen dead applies king ability */
 	@Override
 	public void callAbility(Attack atk) {
-		atk.getAttackingCard().setHealthPoints(
-				atk.getAttackingCard().getHealthPoints() - atk.getAttackPoints()*this.getGeneralModifier());
+		applyJackAbility(atk);
 		
-		if (isPerTurn) {
-			atk.getAttackingCard().setActivePerTurnEffect(
-					atk.getAttackingCard().getActivePerTurnEffect() + QUEEN_MODIFIER);
+		if (!jackAlive) {
+			applyQueenAbility(atk);
 			
-			if (!isSelfDefence) {
-				atk.getAttackingPlayer().setHealthPoints(
-						atk.getAttackingPlayer().getHealthPoints() - atk.getAttackPoints()*this.getGeneralModifier());
+			if (!queenAlive) {
+				applyKingAbility(atk);
 			}
 		}
 	}
 	
-	public boolean isPerTurn() {
-		return isPerTurn;
+	//	applies jack ability by reducing health points of attacking card by an extra half of the attack's attack points
+	private void applyJackAbility(Attack atk) {
+		atk.getAttackingCard().setHealthPoints(atk.getAttackingCard().getHealthPoints() - atk.getAttackPoints()*GENERAL_MODIFIER);
+	}
+	
+	//	applies queen ability by adding queen modifier (-1) to card's active per turn effect modifier
+	private void applyQueenAbility(Attack atk) {
+		atk.getAttackingCard().setActivePerTurnEffect(atk.getAttackingCard().getActivePerTurnEffect() + QUEEN_MODIFIER);
+	}
+	
+	//	applies king ability by reducing health points of attacking card by half of the attack's attack points
+	private void applyKingAbility(Attack atk) {
+		atk.getAttackingPlayer().setHealthPoints(atk.getAttackingPlayer().getHealthPoints() - atk.getAttackPoints()*GENERAL_MODIFIER);
+	}
+	
+	//	gettter for jackALive boolean
+	public boolean isJackAlive() {
+		return jackAlive;
 	}
 
-	public void setPerTurn(boolean isPerTurn) {
-		this.isPerTurn = isPerTurn;
+	//	setter for jackAlive boolean
+	public void setJackAlive(boolean jackAlive) {
+		this.jackAlive = jackAlive;
 	}
 
-	public boolean isSelfDefence() {
-		return isSelfDefence;
+	//	getter for queenAlive boolean
+	public boolean isQueenAlive() {
+		return queenAlive;
 	}
 
-	public void setSelfDefence(boolean isSelfDefense) {
-		this.isSelfDefence = isSelfDefense;
+	//	setter for queenAlive boolean
+	public void setQueenAlive(boolean queenAlive) {
+		this.queenAlive = queenAlive;
 	}
-
 }
 
 	

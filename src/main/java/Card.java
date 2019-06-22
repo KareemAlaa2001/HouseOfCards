@@ -42,5 +42,16 @@ public class Card {
 		this.healthPoints = healthPoints;
 	}
 
+	public void attackCard(Card card) {
+		// TODO implement properly with proper return type
+	}
+	
+	public void attackPlayer(InGamePlayer player) {
+		// TODO implement properly with proper return type
+	}
+	
+	public void receiveAttack(Attack atk) {
+		// TODO implement properly with proper return type
+	}
 	
 }
