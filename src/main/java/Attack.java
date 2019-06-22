@@ -1,4 +1,4 @@
-
+//  class to represent alll attacks
 public  class Attack {
 
 	private Card atkCard;
