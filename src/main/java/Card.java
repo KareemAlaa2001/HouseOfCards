@@ -11,7 +11,7 @@ public class Card {
 	private double activePerTurnEffect;
 	
 	/*	models the number by which the card's health changes every full cycle, where a cycle is completed every time
-	 * 	the turn of the person to whom the card's house belongs 	*/
+	 * 	the turn of the person to whom the card's house belongs */
 	private double activeFullCycleEffect;
 	private House house;
 
