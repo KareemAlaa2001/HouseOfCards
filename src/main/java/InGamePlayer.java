@@ -72,4 +72,20 @@ public class InGamePlayer {
 	public void addToHand(Card card){
 		hand.add(card);
 	}
+
+	public House getMainHouse() {
+		return mainHouse;
+	}
+
+	public void setMainHouse(House mainHouse) {
+		this.mainHouse = mainHouse;
+	}
+
+	public ArrayList<House> getSideHouses() {
+		return sideHouses;
+	}
+
+	public void setSideHouses(ArrayList<House> sideHouses) {
+		this.sideHouses = sideHouses;
+	}
 }
