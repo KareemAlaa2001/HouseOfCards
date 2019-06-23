@@ -182,7 +182,7 @@ public class OfflineGame {
 	private void promptDraw(){
 	
 	}
-<<<<<<< HEAD
+
     public static void cardsElimination(Card card) {
     	// cardsElimination method will check the caard's hp.If it's less than or equals to zero, send it to the graveyards.
     }
@@ -190,15 +190,5 @@ public class OfflineGame {
 
 	public static void playersDeath(InGamePlayer player) {
 	    // playersDeath method will check the player's hp.If it's less than or equals to zero, remove the current player from the game.
-=======
-	
-// models the conflict between 2 cards
-// cardsElimination method will check the card's hp.If it's less than or equals zero, send it to the graveyards. 
-	public void conflict(Card a, Card b) {
-		a.changeHealthPoints((-1*b.attackPoints));
-		b.changeHealthPoints((-1*a.attackPoints));
-        sendCardToGraveyard(a);
-        sendCardToGraveyard(b);
->>>>>>> branch 'master' of https://github.com/KareemAlaa2001/HouseOfCards
 	}
 }

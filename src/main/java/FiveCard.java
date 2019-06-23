@@ -15,17 +15,6 @@ public class FiveCard extends Card {
 	}
 	
 	public void barrierEffect() {
-		
-		
-		
-		
-		
-		
-		
-		
-			
-			
-			
 			
 	}
 

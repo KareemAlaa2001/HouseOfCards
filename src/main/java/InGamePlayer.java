@@ -92,6 +92,6 @@ public class InGamePlayer {
 	}
 	
 	public void changePlayersHealthPoints(double x) {
-		healthPoints += x;x
+		healthPoints += x;
 	}
 }
