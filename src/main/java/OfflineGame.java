@@ -158,4 +158,16 @@ public class OfflineGame {
 	private void promptDraw(){
 	
 	}
+	
+// models the conflict between 2 cards
+// cardsElimination method will check the card's hp.If it's less than or equals zero, send it to the graveyards. 
+	public void conflict(Card a, Card b) {
+		a.changeHealthPoints((-1*b.attackPoints));
+		b.changeHealthPoints((-1*a.attackPoints));
+        	a.cardElimination();
+        	b.cardElimination();
+	}
+	
+		
+	}
 }

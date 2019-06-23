@@ -2,18 +2,68 @@
 public class Card {
 	
 	//	models the card's attack points, usually unchanged 
-	private double attackPoints;
+	protected double attackPoints;
 	
 	//	models the card's health points
-	private double healthPoints;
+	protected double healthPoints;
 	
 	//	models the number by which the card's health changes every passing turn, no matter whose turn it is
-	private double activePerTurnEffect;
+	protected double activePerTurnEffect;
 	
 	/*	models the number by which the card's health changes every full cycle, where a cycle is completed every time
 	 * 	the turn of the person to whom the card's house belongs */
-	private double activeFullCycleEffect;
-	private House house;
+	protected double activeFullCycleEffect;
+	protected House house;
+	protected boolean needsTribute;
+	protected boolean canAttack;
+	protected String description;
+	
+	
+	public Card(double attackPoints,double healthPoints ,double activePerTurnEffect,double activeFullCycleEffect,
+			House house,boolean needsTribute,boolean canAttack,String description) {
+		
+		this.attackPoints = attackPoints;
+		this.healthPoints = healthPoints;
+		this.house = house;
+		this.activePerTurnEffect = activePerTurnEffect;
+		this.activeFullCycleEffect = activeFullCycleEffect;
+		this.needsTribute = needsTribute;
+		this.canAttack = canAttack;
+		this.description = description;	
+	}
+	
+	
+	public void setHouse(House house){
+		this.house = house;
+	}
+	
+	public House getHouse(){
+		return house;
+	}
+	
+	public void setNeedsTribute(boolean needsTribute) {
+		this.needsTribute = needsTribute;
+	}
+	
+	public boolean getNeedsTribute() {
+		return needsTribute;
+	}
+	
+	public void setCanAttack(boolean canAttack) {
+		this.canAttack = canAttack;
+	}
+	
+	public boolean getCanAttack() {
+		return canAttack;
+	}
+	
+	public void setDescrpition(String description) {
+		this.description = description;	
+	}
+	
+	public String getDescription() {
+		return description;
+	}
 
 	public void setShape(int shape){
 		house.setShape(shape);
@@ -63,4 +113,30 @@ public class Card {
 		// TODO implement properly with proper return type
 	}
 	
+	public void changeAttackPoints(double x) {
+		attackPoints += x;
+	}
+	
+	public void changeHealthPoints(double x) {
+		healthPoints += x;
+	}
+	
+//  still figuring it out
+	public void cardCanAttack() {
+		
+	}
+	
+	public void cardNeedsTribute() {
+       if(attackPoints >= 8)
+    	   needsTribute = false;
+       else
+    	   needsTribute = true;		
+	}
+	
+    public void cardElimination() {
+    	
+    }
+
+
+
 }
