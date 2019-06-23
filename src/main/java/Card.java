@@ -19,17 +19,16 @@ public class Card {
 	protected String description;
 	
 	
-	public Card(double attackPoints,double healthPoints ,double activePerTurnEffect,double activeFullCycleEffect,
-			House house,boolean needsTribute,boolean canAttack,String description) {
+	public Card(double attackPoints,  House house) {
 		
 		this.attackPoints = attackPoints;
-		this.healthPoints = healthPoints;
+		this.healthPoints = attackPoints;
 		this.house = house;
-		this.activePerTurnEffect = activePerTurnEffect;
-		this.activeFullCycleEffect = activeFullCycleEffect;
-		this.needsTribute = needsTribute;
-		this.canAttack = canAttack;
-		this.description = description;	
+		this.activePerTurnEffect = 0.0;
+		this.activeFullCycleEffect = 0.0;
+		cardNeedsTribute();
+		this.canAttack = false;
+		this.description = "";	
 	}
 	
 	

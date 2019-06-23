@@ -1,11 +1,8 @@
 
 public class FiveCard extends Card {
 
-	public FiveCard(double attackPoints, double healthPoints, double activePerTurnEffect, double activeFullCycleEffect,
-			House house, boolean needsTribute, boolean canAttack, String description) {
-		super(attackPoints, healthPoints, activePerTurnEffect, activeFullCycleEffect, house, needsTribute, canAttack,
-				description);
-		// TODO Auto-generated constructor stub
+	public FiveCard(double attackPoints, House house) {
+		super(attackPoints, house);
 	}
 
 	private boolean barrier = true;

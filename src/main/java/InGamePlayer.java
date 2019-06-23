@@ -7,17 +7,19 @@ public class InGamePlayer {
 	private ArrayList<Card> hand;
 	private ArrayList<Card> battleList;
 	private ArrayList<Card> tradeList;
-	private double usedShuffleAbility;
+	private boolean usedShuffleAbility;
 	private double healthPoints;
 	private double activePerTurnEffect;
 	private double activeFullCycleEffect;
 	
+	// maximum cards allowed in trade list
 	private static final int MAX_TRADE_LIST = 7;
+	// starting health points for each player
 	private static final int START_HEALTH_POINTS = 5000;
 
 	public InGamePlayer(House mainHouse){
 		this.mainHouse = mainHouse;
-		sideHouses = new ArrayList<Card>();
+		sideHouses = new ArrayList<House>();
 		hand = new ArrayList<Card>();
 		battleList = new ArrayList<Card>();
 		tradeList = new ArrayList<Card>();

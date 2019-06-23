@@ -20,7 +20,7 @@ public class House {
 	private Ability activeAbility;
 	
 	
-	public House(int shape, Ability jackAbility, Ability queenAbility, Ability kingAbility) throws IllegalStateException {
+	public House(int shape) throws IllegalStateException {
 		
 		setJackAlive(true);
 		setQueenAlive(true);
