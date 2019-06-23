@@ -19,23 +19,16 @@ public class Card {
 	protected String description;
 	
 	
-	public Card(double attackPoints,double healthPoints ,double activePerTurnEffect,double activeFullCycleEffect,
-			House house,boolean needsTribute,boolean canAttack,String description) {
+	public Card(double attackPoints,  House house) {
 		
 		this.attackPoints = attackPoints;
-		this.healthPoints = healthPoints;
+		this.healthPoints = attackPoints;
 		this.house = house;
-		this.activePerTurnEffect = activePerTurnEffect;
-		this.activeFullCycleEffect = activeFullCycleEffect;
-		this.needsTribute = needsTribute;
-		this.canAttack = canAttack;
-		this.description = description;	
-		
-		if(healthPoints > 10 || healthPoints < 1)
-			throw new IllegalArgumentException("Health points cannot be greater than 10 nor less than 1!");
-		if(attackPoints > 10 || attackPoints < 1)
-			throw new IllegalArgumentException("Attack points cannot be greater than 10 nor less than 1!");
-			
+		this.activePerTurnEffect = 0.0;
+		this.activeFullCycleEffect = 0.0;
+		cardNeedsTribute();
+		this.canAttack = false;
+		this.description = "";	
 	}
 	
 	
@@ -115,23 +108,21 @@ public class Card {
 		healthPoints += x;
 	}
 	
+//  still figuring it out
 	public void cardCanAttack() {
-		if(canAttack == true) 
-			// call attack method
-		else{
-			throw new IllegalArgumentException("This card has just been deployed or has just released an attack!");
-		}
 		
 	}
 	
 	public void cardNeedsTribute() {
-       if(attackPoints <= 8)
+       if(attackPoints >= 8)
     	   needsTribute = false;
        else
     	   needsTribute = true;		
 	}
 	
-    
+    public void cardElimination() {
+    	
+    }
 
 
 

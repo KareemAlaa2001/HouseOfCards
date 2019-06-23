@@ -6,8 +6,9 @@ public class House {
 	public static final int DIAMOND = 2;
 	public static final int SPADE = 3;
 
-	// the shape variable holds one of House.CLUBS(0) --> House.SPADE(3)
+	// the shape variable holds either House.CLUBS(0) --> House.SPADE(3)
 	private int shape;
+
 	private boolean jackAlive;
 	private boolean queenAlive;
 	private boolean kingAlive;
@@ -19,7 +20,7 @@ public class House {
 	private Ability activeAbility;
 	
 	
-	public House(int shape, Ability jackAbility, Ability queenAbility, Ability kingAbility) throws IllegalStateException {
+	public House(int shape) throws IllegalStateException {
 		
 		setJackAlive(true);
 		setQueenAlive(true);
@@ -71,6 +72,10 @@ public class House {
 		this.jackAbility = shapeAbilities[0];
 		this.queenAbility = shapeAbilities[1];
 		this.kingAbility = shapeAbilities[2];
+	}
+	
+	public int getShape(){
+		return shape;	
 	}
 	
 	private Ability createJackSpadeAbility() {
@@ -137,10 +142,6 @@ public class House {
 		return new Ability[] { createJackClubsAbility(), createQueenClubsAbility(), createKingClubsAbility() };
 	}
  	
-	public int getShape() {
-		return this.shape;
-	}
-	
 	public void setShape(int shape) throws IllegalArgumentException {
 		if (shape >= 0 && shape <= 3) this.shape = shape;
 		else throw new IllegalArgumentException("Shape can only be one of the four constants defined for the class!");
@@ -177,8 +178,4 @@ public class House {
 	public void setActiveAbility(Ability activeAbility) {
 		this.activeAbility = activeAbility;
 	}
-	
-	
-	
-
 }
