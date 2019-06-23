@@ -168,6 +168,4 @@ public class OfflineGame {
         	b.cardElimination();
 	}
 	
-		
-	}
 }

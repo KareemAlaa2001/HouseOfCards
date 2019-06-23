@@ -23,11 +23,11 @@ public class SpadeAbility extends Ability{
 	
 	//	increases attack strength by increasing attack's attack points
 	private void addAttackStrength(Attack atk) {
-		atk.setAttackPoints(atk.getAttackPoints() + this.getGeneralModifier());
+		atk.setAttackDamage(atk.getAttackDamage() + this.getGeneralModifier());
 	}
 	
 	//	reducing damage received by king when it is attacked when this abiltiy is called
 	private void reduceKingDamage(Attack atk) {
-		atk.setAttackPoints(atk.getAttackPoints() * this.getGeneralModifier());
+		atk.setAttackDamage(atk.getAttackDamage() * this.getGeneralModifier());
 	}
 }
