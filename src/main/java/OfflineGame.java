@@ -48,7 +48,7 @@ public class OfflineGame {
 		return shuffledCards;		
 	}	
 	
-	private Stack<Card> formCardPile(){
+	private void formCardPile(){
 		//Generate an unshuffled card deck of the playable cards
 		ArrayList<Card> tempCardDeck = new ArrayList<Card>();
 		//there are four shapes and 10 cards per shape
@@ -67,8 +67,6 @@ public class OfflineGame {
 			cardPile.push(tempCardDeck.get(i));
 		}
 		tempCardDeck.clear();
-		//	TODO put real return value
-		return null;
 	}
 	
 	// returns a Card object or null if the cardPile is empty

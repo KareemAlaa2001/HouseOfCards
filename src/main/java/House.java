@@ -7,9 +7,13 @@ public class House {
 	public static final int SPADE = 3;
 
 	// the shape varible hold either House.CLUBS(0) --> House.SPADE(3)
-	public int shape;
+	private int shape;
 
 	public void setShape(int shape){
 		this.shape = shape;
+	}
+	
+	public int getShape(){
+		return shape;	
 	}
 }
