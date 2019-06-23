@@ -30,6 +30,12 @@ public class Card {
 		this.needsTribute = needsTribute;
 		this.canAttack = canAttack;
 		this.description = description;	
+		
+		if(healthPoints > 10 || healthPoints < 1)
+			throw new IllegalArgumentException("Health points cannot be greater than 10 nor less than 1!");
+		if(attackPoints > 10 || attackPoints < 1)
+			throw new IllegalArgumentException("Attack points cannot be greater than 10 nor less than 1!");
+			
 	}
 	
 	
@@ -100,18 +106,6 @@ public class Card {
 	public void setHealthPoints(double healthPoints) {
 		this.healthPoints = healthPoints;
 	}
-
-	public void attackCard(Card card) {
-		// TODO implement properly with proper return type
-	}
-	
-	public void attackPlayer(InGamePlayer player) {
-		// TODO implement properly with proper return type
-	}
-	
-	public void receiveAttack(Attack atk) {
-		// TODO implement properly with proper return type
-	}
 	
 	public void changeAttackPoints(double x) {
 		attackPoints += x;
@@ -121,21 +115,23 @@ public class Card {
 		healthPoints += x;
 	}
 	
-//  still figuring it out
 	public void cardCanAttack() {
+		if(canAttack == true) 
+			// call attack method
+		else{
+			throw new IllegalArgumentException("This card has just been deployed or has just released an attack!");
+		}
 		
 	}
 	
 	public void cardNeedsTribute() {
-       if(attackPoints >= 8)
+       if(attackPoints <= 8)
     	   needsTribute = false;
        else
     	   needsTribute = true;		
 	}
 	
-    public void cardElimination() {
-    	
-    }
+    
 
 
 

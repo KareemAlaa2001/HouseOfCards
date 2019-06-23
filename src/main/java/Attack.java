@@ -70,5 +70,18 @@ public  class Attack {
 	public void setDefendingCard(Card defCard) {
 		this.defCard = defCard;
 	}
+	
+	public void receiveAttack(Attack atk) {
+		// TODO implement properly with proper return type
+	}
+	
+	public void attackPlayer(InGamePlayer player) {
+		// TODO implement properly with proper return type
+	}	
+	
+	public void attackCard(Card card) {
+		// TODO implement properly with proper return type
+	}
+
 }
 
