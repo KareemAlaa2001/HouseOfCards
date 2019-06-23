@@ -4,10 +4,21 @@ public class SpadeAbility extends Ability{
 	//  boolean to check whether its an attack ability
 	private boolean isAttack;
 	
+	public static final double JACK_MODIFIER = 2;
+	
+	public static final double QUEEN_MODIFIER = 3;
+	
+	public static final double KING_MODIFIER = 0.75;
+	
+	private static final double[] VALID_MODIFIERS = new double[] { JACK_MODIFIER, QUEEN_MODIFIER, KING_MODIFIER };
+	
 	//  constructor, takes superclass generalMod and boolean for isAttack as modifiers
-	public SpadeAbility(double genMod,boolean isAttack)
-	{
+	public SpadeAbility(double genMod,boolean isAttack) throws IllegalArgumentException {
 		super(genMod);
+		
+		if (!checkModifierValid(genMod, VALID_MODIFIERS))
+			throw new IllegalArgumentException("Illegal modifier used! Can only use one of the modifiers defined in this class!");
+		
 		this.isAttack = isAttack;
 	}
 

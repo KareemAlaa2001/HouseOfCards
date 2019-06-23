@@ -11,6 +11,8 @@ public class ClubAbility extends Ability {
 	//	constant for general modifier applied in jack and king abilities
 	public static final double GENERAL_MODIFIER = 0.5;
 	
+	private static final double[] VALID_MODIFIERS = new double[] { QUEEN_MODIFIER, GENERAL_MODIFIER };
+	
 	//	member boolean to check if jack is alive, queen ability is called if false
 	private boolean jackAlive;
 
@@ -19,8 +21,12 @@ public class ClubAbility extends Ability {
 	
 	/*	Constructor for ClubAbility where general modifier and booleans for jackAlive and queenAlive are passed.
 	 *	general modifier isnt really used in this class. The 2 booleans decide which abilities are applied */
-	public ClubAbility(double genMod, boolean isJackAlive, boolean isQueenAlive) {
+	public ClubAbility(double genMod, boolean isJackAlive, boolean isQueenAlive) throws IllegalArgumentException {
 		super(genMod);
+		
+		if (!checkModifierValid(genMod, VALID_MODIFIERS))
+			throw new IllegalArgumentException("Illegal modifier used! Can only use one of the modifiers defined in this class!");
+		
 		this.setJackAlive(isJackAlive);
 		this.setQueenAlive(isQueenAlive);
 	}

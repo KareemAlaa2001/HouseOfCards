@@ -9,7 +9,7 @@ public abstract class Ability {
 	 *  and 0.25 for 75% reduction  
 	 *  */
 	private double generalModifier;
-	
+		
 	//  Meant as a super constructor for subclasses to use for storing general modifier
 	public Ability(double genMod)
 	{
@@ -27,5 +27,12 @@ public abstract class Ability {
 	//	generalModifier setter
 	public void setGeneralModifier(double generalModifier) {
 		this.generalModifier = generalModifier;
+	}
+	
+	protected boolean checkModifierValid(double genMod, double[] validMods) {
+		for (double mod: validMods) {
+			if (mod == genMod) return true;
+		}
+		return false;
 	}
 }
