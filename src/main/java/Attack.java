@@ -108,7 +108,7 @@ public  class Attack {
        OfflineGame.playersDeath(player);
        
 	}	
-	// the medthod below changes the hp of the attacked card
+	// the medthod below changes the hp of the attackedd card
 	public void attackCard(Card card) {
 		card.changeHealthPoints((-1*attackDamage));
 		OfflineGame.cardsElimination(card);

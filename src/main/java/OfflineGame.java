@@ -159,7 +159,7 @@ public class OfflineGame {
 	
 	}
     public static void cardsElimination(Card card) {
-    	// cardsElimination method will check the card's hp.If it's less than or equals to zero, send it to the graveyards.
+    	// cardsElimination method will check the caard's hp.If it's less than or equals to zero, send it to the graveyards.
     }
  
 
