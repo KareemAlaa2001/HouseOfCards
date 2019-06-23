@@ -4,21 +4,34 @@ public class HeartAbility extends Ability{
 
 	//	boolean to check if ability is applied every full cycle (T) or every turn (F), used to distinguish between king and queen abilities
 	private boolean isFullCycle;
+	
+	public static final double JACK_MODIFIER = 2;
+	
+	public static final double QUEEN_MODIFIER = 5;
+	
+	public static final double KING_MODIFIER = 2.5;
+	
+	private static final double[] VALID_MODIFIERS = new double[] { JACK_MODIFIER, QUEEN_MODIFIER, KING_MODIFIER };
 
 	//	constructor, takes values for general modifier and isFullCycle boolean
-	public HeartAbility(double genMod,boolean isFullCycle) {
+	public HeartAbility(double genMod,boolean isFullCycle) throws IllegalArgumentException {
 		super(genMod);
+
+		if (!checkModifierValid(genMod, VALID_MODIFIERS))
+			throw new IllegalArgumentException("Illegal modifier used! Can only use one of the modifiers defined in this class!");
+		
 		this.setFullCycle(isFullCycle);
 	}
 
 	//	This method can't be used for heart since the usage of this hoouse's ability is not triggered during an attack
 	@Override
-	public void callAbility(Attack atk) {
+	public void callAbility(Attack atk) throws IllegalArgumentException {
 		throw new IllegalArgumentException("You can't call this method for the heart ability since it doesn't involve attacks!");
 	}
 
 	//	calls the jack ability since it is the only card related heart ability
-	public void callHeartAbilityOnCard(Card healedCard) {
+	public void callHeartAbilityOnCard(Card healedCard) throws Exception {
+		if (!isFullCycle) throw new Exception("Can't call this method on an ability which isn't a full cycle ability! Should be jack ability!");
 		applyJackAbility(healedCard);
 	}
 	

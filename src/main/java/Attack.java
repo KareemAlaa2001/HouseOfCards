@@ -17,7 +17,11 @@ public  class Attack {
 	private Card defCard;
 
 	//	constructor for initiating an attack on a card 
-	public Attack(Card atkCard, InGamePlayer atkPlayer, Card defCard) {
+	public Attack(Card atkCard, InGamePlayer atkPlayer, Card defCard) throws IllegalArgumentException {
+		
+		for (House house: atkPlayer.getSideHouses())
+			if (defCard.getHouse().equals(house)) throw new IllegalArgumentException("A player can't attack a card from one of his own houses!");
+		
 		this.setAttackingCard(atkCard);
 		this.setAttackingPlayer(atkPlayer);
 		this.setAttackDamage(this.getAttackingCard().getAttackPoints());
@@ -34,7 +38,7 @@ public  class Attack {
 		this.setDefendingPlayer(defPlayer);
 	}
 	
-	//	getter for attacknig card
+	//	getter for attacking card
 	public Card getAttackingCard() {
 		return atkCard;
 	}
@@ -66,7 +70,7 @@ public  class Attack {
 
 	/*	getter for defending player. It can be null so checks if null and throws an IllegalArgumentException.
 	 * 	if defending player is null then this attack is directed towards a card	*/
-	public InGamePlayer getDefendingPlayer() {
+	public InGamePlayer getDefendingPlayer() throws IllegalArgumentException {
 		try {
 			return defPlayer;
 		} catch (NullPointerException e) {
@@ -81,7 +85,7 @@ public  class Attack {
 	
 	/*	getter for defending card. It can be null so checks if null and throws an IllegalArgumentException.
 	 * 	if defending card is null then this attack is directed towards a player	*/
-	public Card getDefendingCard() {
+	public Card getDefendingCard() throws IllegalArgumentException {
 		try {
 			return defCard;
 		} catch (NullPointerException e) {
