@@ -17,6 +17,18 @@ public class FiveCard extends Card {
 	    return barrier;
 	}
 	
+	public void barrierEffect() {
+		
+		
+		
+		
+		
+		
+		
+		
+			
+			
+			
 			
 	}
 

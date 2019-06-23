@@ -99,15 +99,19 @@ public  class Attack {
 	}
 	
 	public void receiveAttack(Attack atk) {
-		// TODO implement properly with proper return type
+        
 	}
-	
+
+	// the method below changes the hp of the attacked player
 	public void attackPlayer(InGamePlayer player) {
-		// TODO implement properly with proper return type
+       player.changePlayersHealthPoints((-1*attackDamage));
+       OfflineGame.playersDeath(player);
+       
 	}	
-	
+	// the medthod below changes the hp of the attacked card
 	public void attackCard(Card card) {
-		// TODO implement properly with proper return type
+		card.changeHealthPoints((-1*attackDamage));
+		OfflineGame.cardsElimination(card);
 	}
 
 }

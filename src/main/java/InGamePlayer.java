@@ -54,4 +54,8 @@ public class InGamePlayer {
 	public void setSideHouses(ArrayList<House> sideHouses) {
 		this.sideHouses = sideHouses;
 	}
+	
+	public void changePlayersHealthPoints(double x) {
+		healthPoints += x;
+	}
 }

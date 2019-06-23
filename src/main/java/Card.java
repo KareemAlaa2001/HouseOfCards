@@ -1,4 +1,4 @@
-//	TODO Mostafa you need to work on this class bro
+//
 public class Card {
 	
 	//	models the card's attack points, usually unchanged 
