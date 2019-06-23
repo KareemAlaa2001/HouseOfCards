@@ -12,7 +12,7 @@ public class FiveCard extends Card {
 	
 	
 	public boolean barrierCondition() {
-	    if(healthPoints > 5 && barrier == true)
+	    if(healthPoints < 5 && barrier == true)
 	    	barrier = false;
 	    return barrier;
 	}
