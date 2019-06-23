@@ -9,7 +9,7 @@ public class DiamondAbility extends Ability{
 	//  Applies ability by reducing received damage by multiplying attack points by genMod
 	@Override
 	public void callAbility(Attack atk) {
-		atk.setAttackPoints(atk.getAttackPoints() * this.getGeneralModifier());
+		atk.setAttackDamage(atk.getAttackDamage() * this.getGeneralModifier());
 	}
 	
 }
