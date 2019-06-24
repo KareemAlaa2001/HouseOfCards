@@ -4,7 +4,7 @@ public class InGamePlayer {
 	
 	protected House mainHouse;
 	protected ArrayList<House> sideHouses;
-	protected ArrayList<Card> hand;
+	public static ArrayList<Card> hand;
 	protected ArrayList<Card> battleList;
 	protected ArrayList<Card> tradeList;
 	protected boolean usedShuffleAbility;
