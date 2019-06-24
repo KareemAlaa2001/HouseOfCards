@@ -2,15 +2,16 @@ import java.util.*;
 
 public class InGamePlayer {
 	
-	private House mainHouse;
-	private ArrayList<House> sideHouses;
-	private ArrayList<Card> hand;
-	private ArrayList<Card> battleList;
-	private ArrayList<Card> tradeList;
-	private boolean usedShuffleAbility;
-	private double healthPoints;
-	private double activePerTurnEffect;
-	private double activeFullCycleEffect;
+	protected House mainHouse;
+	protected ArrayList<House> sideHouses;
+	protected ArrayList<Card> hand;
+	protected ArrayList<Card> battleList;
+	protected ArrayList<Card> tradeList;
+	protected boolean usedShuffleAbility;
+	protected double healthPoints;
+	protected double activePerTurnEffect;
+	protected double activeFullCycleEffect;
+	
 	
 	// maximum cards allowed in trade list
 	private static final int MAX_TRADE_LIST = 7;
@@ -24,7 +25,7 @@ public class InGamePlayer {
 		battleList = new ArrayList<Card>();
 		tradeList = new ArrayList<Card>();
 		usedShuffleAbility = false;
-		healthPoints = START_HEALTH_POINTS;	
+		healthPoints = START_HEALTH_POINTS;
 		activePerTurnEffect = 0;
 		activeFullCycleEffect = 0;
 	}
