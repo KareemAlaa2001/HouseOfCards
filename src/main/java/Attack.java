@@ -8,7 +8,7 @@ public  class Attack {
 	private InGamePlayer atkPlayer;
 	
 	//	represents the damage the attack will inflict
-	public double attackDamage;
+	public static double attackDamage;
 	
 	//	Player receiving the attack. Only used if the attack is directed towards the player himself not his card.
 	private InGamePlayer defPlayer;
@@ -103,7 +103,7 @@ public  class Attack {
 	}
 
 	// the method below changes the hp of the attacked player
-	public void attackPlayer(InGamePlayer player) {
+	public static void attackPlayer(InGamePlayer player) {
        player.changePlayersHealthPoints((-1*attackDamage));
        OfflineGame.playersDeath(player);
        

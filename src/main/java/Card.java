@@ -110,6 +110,10 @@ public class Card {
 	
 //  	the parameter input (flag) always has to be true initially
 	public boolean cardCanAttack(boolean flag) {
+		//threecard can attack instantly
+		if(attackPoints == 3)
+			return true;
+		
 		if(OfflineGame.fullCycleTurn() == true) {
 			return true;
 		}
@@ -129,9 +133,7 @@ public class Card {
     	   needsTribute = true;		
 	}
 	
-    public void cardElimination() {
-    	
-    }
+
 
 
 
