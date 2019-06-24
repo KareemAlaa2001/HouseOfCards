@@ -8,7 +8,7 @@ public  class Attack {
 	private InGamePlayer atkPlayer;
 	
 	//	represents the damage the attack will inflict
-	private double attackDamage;
+	public double attackDamage;
 	
 	//	Player receiving the attack. Only used if the attack is directed towards the player himself not his card.
 	private InGamePlayer defPlayer;
@@ -91,7 +91,7 @@ public  class Attack {
 		} catch (NullPointerException e) {
 			throw new IllegalArgumentException("No defending card, this attack is directed towards a player!");
 		}
-	}
+	}	
 
 	//	setter for defending card
 	public void setDefendingCard(Card defCard) {
@@ -108,7 +108,7 @@ public  class Attack {
        OfflineGame.playersDeath(player);
        
 	}	
-	// the medthod below changes the hp of the attackedd card
+	// the medthod below changes the hp of the attacked card
 	public void attackCard(Card card) {
 		card.changeHealthPoints((-1*attackDamage));
 		OfflineGame.cardsElimination(card);

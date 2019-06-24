@@ -14,8 +14,20 @@ public class FiveCard extends Card {
 	    return barrier;
 	}
 	
-	public void barrierEffect() {
-			
+	public void barrierEffect(Attack atk) {
+			if(barrier == true) {
+				atk.attackDamage = 0;
+				barrierCondition();
 	}
 
+	}
+	public void doubleAttackEffect() {
+		for(int i=0;i<=2;i++) {
+			
+
+			
+		}
+		
+		
+	}
 }

@@ -108,9 +108,18 @@ public class Card {
 		healthPoints += x;
 	}
 	
-//  still figuring it out
-	public void cardCanAttack() {
-		
+//  	the parameter input (flag) always has to be true initially
+	public boolean cardCanAttack(boolean flag) {
+		if(OfflineGame.fullCycleTurn() == true) {
+			return true;
+		}
+		else 
+			throw new IllegalArgumentException("This card has just been deployed!");
+
+		if(flag == false)
+            throw new IllegalArgumentException("This card cannot attack twice!");
+        else 
+            return(cardCanAttack(flag = false));
 	}
 	
 	public void cardNeedsTribute() {

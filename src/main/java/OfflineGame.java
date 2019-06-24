@@ -191,4 +191,9 @@ public class OfflineGame {
 	public static void playersDeath(InGamePlayer player) {
 	    // playersDeath method will check the player's hp.If it's less than or equals to zero, remove the current player from the game.
 	}
+    
+    public static boolean fullCycleTurn() {
+    	//  needs to start working on
+    	return true;
+    }
 }
