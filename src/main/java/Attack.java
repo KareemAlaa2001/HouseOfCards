@@ -59,13 +59,13 @@ public  class Attack {
 	}
 
 	//	getter for attack damage
-	public double getAttackDamage() {
+	public static double getAttackDamage() {
 		return attackDamage;
 	}
 
 	//	setter for attack damage
-	public void setAttackDamage(double attackDamage) {
-		this.attackDamage = attackDamage;
+	public static void setAttackDamage(double attackDamage) {
+		Attack.attackDamage = attackDamage;
 	}
 
 	/*	getter for defending player. It can be null so checks if null and throws an IllegalArgumentException.
