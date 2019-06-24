@@ -2,7 +2,7 @@
 public class Card {
 	
 	//	models the card's attack points, usually unchanged 
-	protected double attackPoints;
+	protected static double attackPoints;
 	
 	//	models the card's health points
 	protected double healthPoints;
@@ -21,7 +21,7 @@ public class Card {
 	
 	public Card(double attackPoints,  House house) {
 		
-		this.attackPoints = attackPoints;
+		Card.attackPoints = attackPoints;
 		this.healthPoints = attackPoints;
 		this.house = house;
 		this.activePerTurnEffect = 0.0;
@@ -68,12 +68,12 @@ public class Card {
 		house.setShape(shape);
 	}
 
-	public double getAttackPoints() {
+	public static double getAttackPoints() {
 		return attackPoints;
 	}
 
-	public void setAttackPoints(double attackPoints) {
-		this.attackPoints = attackPoints;
+	public static void setAttackPoints(double attackPoints) {
+		Card.attackPoints = attackPoints;
 	}
 
 	public double getActiveFullCycleEffect() {

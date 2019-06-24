@@ -184,16 +184,16 @@ public class OfflineGame {
 	}
 
     public static void cardsElimination(Card card) {
-    	// cardsElimination method will check the caard's hp.If it's less than or equals to zero, send it to the graveyards.
+    	// TODO cardsElimination method will check the caard's hp.If it's less than or equals to zero, send it to the graveyards.
     }
  
 
 	public static void playersDeath(InGamePlayer player) {
-	    // playersDeath method will check the player's hp.If it's less than or equals to zero, remove the current player from the game.
+	    // TODO playersDeath method will check the player's hp.If it's less than or equals to zero, remove the current player from the game.
 	}
     
     public static boolean fullCycleTurn() {
-    	//  needs to start working on
+    	//  TODO needs to start working on
     	return true;
     }
 }

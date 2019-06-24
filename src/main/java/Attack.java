@@ -98,8 +98,14 @@ public  class Attack {
 		this.defCard = defCard;
 	}
 	
+	public static void sendAttack(Attack atk) {
+// TODO kareem you need to work on this
+
+			
+	}
+	
 	public void receiveAttack(Attack atk) {
-        
+		// TODO kareem you need to work on this        
 	}
 
 	// the method below changes the hp of the attacked player
