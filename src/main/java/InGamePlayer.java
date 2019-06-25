@@ -30,6 +30,10 @@ public class InGamePlayer {
 		activeFullCycleEffect = 0;
 	}
 
+	public ArrayList<Card> getTradeList(){
+		return tradeList;	
+	}
+
 	// returns true when card is added successfully. False when tradeList was full;
 	public boolean addToTradeList(Card cardToAdd){
 		if(tradeList.size() > MAX_TRADE_LIST){
@@ -42,11 +46,37 @@ public class InGamePlayer {
 	public void removeFromTradeList(Card cardToRemove){
 		tradeList.remove(cardToRemove);
 	}
+	// battle list methods 
+	public ArrayList<Card> getBattleList(){
+		return battleList;
+	}
 
 	public void addToBattleList(Card cardToAdd){
 		battleList.add(cardToAdd);	
 	}
+
+	//hand getters and setters and methods
+	public ArrayList<Card> getHand(){
+		return hand;
+	}
+
+	public void addToHand(Card card){
+		hand.add(card);
+	}
 	
+	public void addCardsToHand(ArrayList<Card> cards){
+		for(int i = 0; i < cards.size(); i++){
+			hand.add(cards.get(i)):
+		}
+	}
+
+	public void applyPerTurnEffect(){
+		healthPoints += activePerTurnEffect;	
+	}
+	
+	public void applyFullCycleEffect(){
+		healthPoints += activeFullCycleEffect;	
+	}
 	
 	public double getHealthPoints() {
 		return healthPoints;
@@ -72,10 +102,7 @@ public class InGamePlayer {
 		this.activeFullCycleEffect = activeFullCycleEffect;
 	}
 
-	public void addToHand(Card card){
-		hand.add(card);
-	}
-
+	
 	public House getMainHouse() {
 		return mainHouse;
 	}
@@ -88,15 +115,11 @@ public class InGamePlayer {
 		return sideHouses;
 	}
 
-	public void setSideHouses(ArrayList<House> sideHouses) {
-		this.sideHouses = sideHouses;
+	public void addSideHouse(House house) {
+		this.sideHouses.add(house);
 	}
 	
 	public void changePlayersHealthPoints(double x) {
 		healthPoints += x;
 	}
-
-
-
-
 }
