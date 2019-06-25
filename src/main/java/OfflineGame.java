@@ -116,8 +116,6 @@ public class OfflineGame {
 		return shuffledCards;		
 	}	
 	
-
-	
 	// returns a Card object or null if the cardPile is empty
 	private Card getCardFromPile(){
 		Card newCard = null;
@@ -185,7 +183,9 @@ public class OfflineGame {
 		}
 		changeInTurn = false;
 	}
-
+	public boolean isGameOver(){
+		return isGameOver;
+	}
 	public void switchCardsBetweenPlayers(){
 		changeInTurn = true;	
 	}
@@ -220,6 +220,10 @@ public class OfflineGame {
 		// kill the dead player ( move him to dead array )
 		deadPlayers.add(deadPlayer);
 		connectedPlayers.remove(deadPlayer);
+		// check to see if only one player is alive
+		if(connectedPlayers.size() == 1){
+			isGameOver = true();
+		}
 		//TODO implement deallocation of dead player's special cards
 	}
 
