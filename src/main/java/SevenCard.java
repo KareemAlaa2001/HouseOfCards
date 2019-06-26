@@ -1,4 +1,3 @@
-
 public class SevenCard extends Card{
 
 	private Card temp;
@@ -18,20 +17,16 @@ public class SevenCard extends Card{
 	}
 	
     public void switchEffect(Card sevenCard, Card card) {
-	
-	if(getSwitchCondition() == true) {
-	if(Card.attackPoints == 7) {
-	temp = card;
-	card = sevenCard;
-	sevenCard = temp;
-	setSwitchCondition(false);
+			
+		if(getSwitchCondition() == true) {
+		if(Card.attackPoints == 7) {
+		temp = card;
+		card = sevenCard;
+		sevenCard = temp;
+		setSwitchCondition(false);
+		}
+		else
+			throw new IllegalArgumentException("You can only choose the Seven Card to switch it with another card!");
+		}
 	}
-	else
-		throw new IllegalArgumentException("You can only choose the Seven Card to switch it with another card!");
-	}
-}
-
-
-
-
 }

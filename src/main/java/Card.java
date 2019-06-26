@@ -1,4 +1,3 @@
-//
 public class Card {
 	
 	//	models the card's attack points, usually unchanged 
@@ -20,7 +19,6 @@ public class Card {
 	
 	
 	public Card(double attackPoints,  House house) {
-		
 		this.attackPoints = attackPoints;
 		this.healthPoints = attackPoints;
 		this.house = house;
@@ -107,8 +105,15 @@ public class Card {
 	public void changeHealthPoints(double x) {
 		healthPoints += x;
 	}
+	public void applyFullCycleEffect(){
+		healthPoints += activeFullCycleEffect;	
+	}
+	public void applyPerTurnEffect(){
+		healthPoints += activePerTurnEffect;	
+	}
 	
-//  	the parameter input (flag) always has to be true initially
+/*	
+ 	the parameter input (flag) always has to be true initially
 	public boolean cardCanAttack(boolean flag) {
 		//threecard can attack instantly
 		if(attackPoints == 3)
@@ -124,9 +129,9 @@ public class Card {
             throw new IllegalArgumentException("This card cannot attack twice!");
         else 
             return(cardCanAttack(flag = false));
-            */
+            
 	}
-	
+*/
 	public void cardNeedsTribute() {
        if(attackPoints >= 8)
     	   needsTribute = false;

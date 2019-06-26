@@ -8,18 +8,26 @@ public class OfflineGame {
 	private static final int NUM_OF_HOUSES = 4;
 
 	private ArrayList<InGamePlayer> connectedPlayers;
-	private int currentPlayerTurn;
+	private ArrayList<InGamePlayer> deadPlayers;
+	private int currentPlayer;
 	private ArrayList<Card> graveyard;
 	private Stack<Card> cardPile;
 	private boolean changeInTurn;
 	private int turnsSinceLastChange;
+	// checks if cards need to be reset
 	private boolean graveyardToPile;
-	// still needs to add Hashmap of cards and abilities
-	
+	// tells the main program if there are no cards for the player to draw from (in graveyard and cardPile)
+	private boolean noMoreCards;
+	// tells the main program to ask user for a draw
+	private boolean requestDraw;
+	// stores whether the game is over or not
+	private boolean isGameOver;
+	// stores which phase the game is in
+	private boolean isTradePhase;
 	// the constructor acts as the "initGame" and "assignHouses" methods in the class diagram
 	public OfflineGame(){
 		// initialize the attributes
-		currentPlayerTurn = 0;
+		currentPlayer = 0;
 		graveyard = new ArrayList<Card>();
 		cardPile = new Stack<Card>();
 		changeInTurn = false;
@@ -109,8 +117,6 @@ public class OfflineGame {
 		return shuffledCards;		
 	}	
 	
-
-	
 	// returns a Card object or null if the cardPile is empty
 	private Card getCardFromPile(){
 		Card newCard = null;
@@ -128,72 +134,110 @@ public class OfflineGame {
 	}
 
 	public void endTradePhase(){
-	
+		isTradePhase = false;
+	}
+
+	public void beginTurn(){
+		// draw a card from the pile
+		Card card = getCardFromPile();
+		if(card != null){
+			connectedPlayers.get(currentPlayer).addToHand(getCardFromPile());
+		}else{
+			noMoreCards = true;
+		}
+
 	}
 
 	public void endTurn(){
-	
+		ArrayList<Card> battleList;
+		for(int player = 0; player < NUM_OF_PLAYERS; player++){
+			// apply per turn effects on all of the players
+			connectedPlayers.get(player).applyPerTurnEffect();
+			if(player == currentPlayer){
+				// apply full cycle effects on the current player
+				connectedPlayers.get(player).applyFullCycleEffect();
+			}
+			// apply per turn effects on all cards in the players' battleLists
+			battleList = connectedPlayers.get(player).getBattleList();
+			for(int card = 0; card < battleList.size(); card++){
+				battleList.get(card).applyPerTurnEffect();
+				// apply full cycle effects on all cards in the current player's battleLists
+				if(player == currentPlayer){
+					battleList.get(card).applyFullCycleEffect();
+					// all cards can attack to true in the current player's battleList
+					battleList.get(card).setCanAttack(true);
+				}
+			}	
+		} 
+		// check to see if the pile needs to be reset from the graveyard
+		if(graveyardToPile){
+			resetPile();
+		}
+		// currentPlayer to next player
+		currentPlayer = (currentPlayer + 1 ) % connectedPlayers.size();
+		// check to see if there was a change in the turn
+		if(changeInTurn){
+			turnsSinceLastChange += 1;
+			if(turnsSinceLastChange >= 3){
+				promptDraw();	
+			}
+		}
+		changeInTurn = false;
 	}
-
-	public void showCards(){
-	
+	public boolean isGameOver(){
+		return isGameOver;
 	}
-
-	public void hideCards(){
-	
-	}
-
 	public void switchCardsBetweenPlayers(){
-	
-	}
-	
-	public void applyRelevantAbilities(){
-	
+		changeInTurn = true;	
 	}
 
-	public void manageAttack(){
-	
+	public void manageAttack(Card atkCard, Card defCard, InGamePlayer defPlayer){
+		changeInTurn = true;	
 	}
 
 	private void sendCardToGraveyard(Card card){
-	
+		graveyard.add(card);	
 	}
 
 	private void resetPile(){
-	
+		graveyard = shuffle(graveyard);
+		for(int i = 0; i < graveyard.size(); i++){
+			cardPile.push(graveyard.get(i));
+		}	
 	}
 
-	private void managePlayerDeath(){
-	
-	}
-
-	private void addHousetoKillersSideHouses(){
-	
-	}
-
-	private void allocateDeadPlayerCards(){
-	
-	}
-
-	private void deallocateDeadPlayersSpecialCards(){
-	
+	private void managePlayerDeath(InGamePlayer killerPlayer, InGamePlayer deadPlayer){
+		// mainHouse -> sideHouse of other player
+		killerPlayer.addSideHouse(deadPlayer.getMainHouse());	
+		// battleList -> hand
+		killerPlayer.addCardsToHand(deadPlayer.getBattleList());
+		// tradeList -> hand
+		killerPlayer.addCardsToHand(deadPlayer.getTradeList());
+		// hand -> shuffled into graveyard
+		ArrayList<Card> deadPlayersHand = shuffle(deadPlayer.getHand());
+		for(int i =0; i < deadPlayersHand.size(); i++){
+			graveyard.add(deadPlayersHand.get(i));
+		}
+		// kill the dead player ( move him to dead array )
+		deadPlayers.add(deadPlayer);
+		connectedPlayers.remove(deadPlayer);
+		// check to see if only one player is alive
+		if(connectedPlayers.size() == 1){
+			isGameOver = true;
+		}
+		//TODO implement deallocation of dead player's special cards
 	}
 
 	private void promptDraw(){
-	
+		requestDraw = true;	
 	}
 
-    public static void cardsElimination(Card card) {
-    	// TODO cardsElimination method will check the caard's hp.If it's less than or equals to zero, send it to the graveyards.
-    }
- 
-
-	public static void playersDeath(InGamePlayer player) {
-	    // TODO playersDeath method will check the player's hp.If it's less than or equals to zero, remove the current player from the game.
+	public void acceptDraw(){
+		isGameOver = false;
 	}
-    
-    public static boolean fullCycleTurn() {
-    	//  TODO needs to start working on
-    	return true;
-    }
+
+	public void rejectDraw(){
+		turnsSinceLastChange = 0;
+		changeInTurn = true;
+	}
 }

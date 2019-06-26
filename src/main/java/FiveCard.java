@@ -19,13 +19,13 @@ public class FiveCard extends Card {
 			if(getBarrier() == true) {
 				atk.attackDamage = 0;
 				setBarrier(false);
-	}
+			}
 
 	}
+/*
 	public static void doubleAttackEffect(Attack atk1,Attack atk2) {
             Attack.sendAttack(atk1);
             Attack.sendAttack(atk2);
-		
-		
 	}
+*/
 }
