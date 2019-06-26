@@ -4,7 +4,7 @@ public class InGamePlayer {
 	
 	protected House mainHouse;
 	protected ArrayList<House> sideHouses;
-	public static ArrayList<Card> hand;
+	public ArrayList<Card> hand;
 	protected ArrayList<Card> battleList;
 	protected ArrayList<Card> tradeList;
 	protected boolean usedShuffleAbility;
@@ -12,6 +12,7 @@ public class InGamePlayer {
 	protected double activePerTurnEffect;
 	protected double activeFullCycleEffect;
 	
+	public static final int HEALTH_MULTIPLIER = 100;
 	
 	// maximum cards allowed in trade list
 	private static final int MAX_TRADE_LIST = 7;
@@ -92,11 +93,20 @@ public class InGamePlayer {
 		this.sideHouses = sideHouses;
 	}
 	
-	public void changePlayersHealthPoints(double x) {
-		healthPoints += x;
+	public void changeHealthPoints(double x) {
+		healthPoints += x * InGamePlayer.HEALTH_MULTIPLIER;
 	}
 
-
+	public ArrayList<House> getAllHouses() {
+		ArrayList<House> allHouses = new ArrayList<House>();
+		
+		allHouses.add(getMainHouse());
+		for (House h: getSideHouses()) {
+			allHouses.add(h);
+		}
+		
+		return allHouses;
+	}
 
 
 }
