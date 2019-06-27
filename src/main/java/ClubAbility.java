@@ -48,7 +48,7 @@ public class ClubAbility extends Ability {
 	
 	//	applies jack ability by reducing health points of attacking card by an extra half of the attack's attack points
 	private void applyJackAbility(Attack atk) {
-		atk.getAttackingCard().setHealthPoints(atk.getAttackingCard().getHealthPoints() - atk.getAttackDamage()*GENERAL_MODIFIER);
+		atk.getAttackingCard().changeHealthPoints(-atk.getAttackDamage()*GENERAL_MODIFIER);
 	}
 	
 	//	applies queen ability by adding queen modifier (-1) to card's active per turn effect modifier
@@ -58,7 +58,7 @@ public class ClubAbility extends Ability {
 	
 	//	applies king ability by reducing health points of attacking card by half of the attack's attack points
 	private void applyKingAbility(Attack atk) {
-		atk.getAttackingPlayer().setHealthPoints(atk.getAttackingPlayer().getHealthPoints() - atk.getAttackDamage()*GENERAL_MODIFIER);
+		atk.getAttackingPlayer().changeHealthPoints(-atk.getAttackDamage()*GENERAL_MODIFIER);
 	}
 	
 	//	gettter for jackALive boolean

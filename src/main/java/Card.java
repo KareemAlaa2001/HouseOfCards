@@ -104,6 +104,8 @@ public class Card {
 	
 	public void changeHealthPoints(double x) {
 		healthPoints += x;
+		
+		if (getHealthPoints() < 0) setHealthPoints(0);
 	}
 	public void applyFullCycleEffect(){
 		healthPoints += activeFullCycleEffect;	
