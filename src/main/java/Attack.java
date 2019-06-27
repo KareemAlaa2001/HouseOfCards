@@ -15,11 +15,9 @@ public  class Attack {
 	
 	//	Card receiving the attack. Used when attacking a card owned by a player.
 	private Card defCard;
-
-	private boolean attackOnPlayer;
 	
 	//	constructor for initiating an attack on a card 
-	public Attack(Card atkCard, InGamePlayer atkPlayer, Card defCard, InGamePlayer defPlayer, boolean atkOnPlayer) throws IllegalArgumentException {
+	public Attack(Card atkCard, InGamePlayer atkPlayer, InGamePlayer defPlayer, Card defCard) throws IllegalArgumentException {
 		
 		for ( House atkHouse: atkPlayer.getAllHouses()) {
 			for (House defHouse : defPlayer.getAllHouses()) {
@@ -32,7 +30,22 @@ public  class Attack {
 		this.setAttackDamage(this.getAttackingCard().getAttackPoints());
 		this.setDefendingCard(defCard);
 		this.setDefendingPlayer(defPlayer);
-		this.setAttackOnPlayer(atkOnPlayer);
+	}
+	
+	//	constructor for initiating an attack on a card 
+	public Attack(Card atkCard, InGamePlayer atkPlayer, InGamePlayer defPlayer) throws IllegalArgumentException {
+		
+		for ( House atkHouse: atkPlayer.getAllHouses()) {
+			for (House defHouse : defPlayer.getAllHouses()) {
+				if (atkHouse.equals(defHouse)) throw new IllegalArgumentException("Attakcing player can't attack his own house!");
+			}
+		}
+		
+		this.setAttackingCard(atkCard);
+		this.setAttackingPlayer(atkPlayer);
+		this.setAttackDamage(this.getAttackingCard().getAttackPoints());
+		this.setDefendingPlayer(defPlayer);
+		this.setDefendingCard(null);
 	}
 	
 	//	getter for attacking card
@@ -68,11 +81,7 @@ public  class Attack {
 	/*	getter for defending player. It can be null so checks if null and throws an IllegalArgumentException.
 	 * 	if defending player is null then this attack is directed towards a card	*/
 	public InGamePlayer getDefendingPlayer() throws IllegalArgumentException {
-		try {
-			return defPlayer;
-		} catch (NullPointerException e) {
-			throw new IllegalArgumentException("No defending player, this attack is directed towards a card!");
-		}
+		return defPlayer;
 	}
 
 	//	setter for defending player
@@ -95,20 +104,12 @@ public  class Attack {
 		this.defCard = defCard;
 	}
 	
-	public void carryOutAttack() {
-		boolean atkIsSpadeJorQ = getAttackingPlayer().getMainHouse().getShape() == House.SPADE && getAttackingPlayer().getMainHouse().isQueenAlive();
+	public void carryOutAttack() {	
+		applyRelevantAbilities();
+		applyRelevantHealthChanges();
+	}
 	
-		House defendingPlayerHouse = getDefendingPlayer().getMainHouse();
-		boolean defIsKingSpade = defendingPlayerHouse.getShape() == House.SPADE && !defendingPlayerHouse.isQueenAlive();
-		boolean defIsDiamOrClubs = defendingPlayerHouse.getShape() == House.CLUBS || defendingPlayerHouse.getShape() == House.DIAMOND;
-			
-		boolean defHasDefAbility =  defIsKingSpade || defIsDiamOrClubs;
-			
-		if (atkIsSpadeJorQ) getAttackingPlayer().getMainHouse().applyActiveAbility(this);
-			
-		if (defHasDefAbility) getDefendingPlayer().getMainHouse().applyActiveAbility(this);
-		
-		
+	private void applyRelevantHealthChanges() {
 		if (isAttackOnPlayer()) {
 			getDefendingPlayer().changeHealthPoints(getAttackDamage());
 		} else {
@@ -116,13 +117,35 @@ public  class Attack {
 			getAttackingCard().changeHealthPoints(getDefendingCard().getAttackPoints());
 		}
 	}
-
-	public boolean isAttackOnPlayer() {
-		return attackOnPlayer;
+	
+	private void applyRelevantAbilities() {
+		applyRelevantAtkAbility();
+		applyRelevantDefAbility();
+	}
+	
+	private void applyRelevantAtkAbility() {
+		if (attackerHasActiveAttackAbility()) getAttackingPlayer().getMainHouse().applyActiveAbility(this);
+	}
+	
+	private void applyRelevantDefAbility() {
+		if (defenderHasActiveDefendingAbility()) getDefendingPlayer().getMainHouse().applyActiveAbility(this);
+	}
+	
+	private boolean attackerHasActiveAttackAbility() {
+		return getAttackingPlayer().getMainHouse().getShape() == House.SPADE && getAttackingPlayer().getMainHouse().isQueenAlive();
 	}
 
-	public void setAttackOnPlayer(boolean attackOnPlayer) {
-		this.attackOnPlayer = attackOnPlayer;
+	private boolean defenderHasActiveDefendingAbility() {
+		House defendingPlayerHouse = getDefendingPlayer().getMainHouse();
+		boolean defIsKingSpade = defendingPlayerHouse.getShape() == House.SPADE && !defendingPlayerHouse.isQueenAlive();
+		boolean defIsDiamOrClubs = defendingPlayerHouse.getShape() == House.CLUBS || defendingPlayerHouse.getShape() == House.DIAMOND;
+			
+		boolean defHasDefAbility =  defIsKingSpade || defIsDiamOrClubs;
+		return defHasDefAbility;
+	}
+	
+	public boolean isAttackOnPlayer() {
+		return defCard == null;
 	}
 	
 	/*
