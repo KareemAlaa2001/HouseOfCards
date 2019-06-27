@@ -192,10 +192,10 @@ public class OfflineGame {
 		return isGameOver;
 	}
 	
-	public void switchCardsBetweenPlayers(ArrayList<Card> outGoing, ArrayList<Card> inComing, int otherPlayer){
+	public void switchCardsBetweenPlayers(ArrayList<Card> outGoing, ArrayList<Card> inComing, int otherPlayerIndex){
 		changeInTurn = true;
-		InGamePlayer currentPlayer = connectedPlayers.get(currentPlayer);
-		InGamePlayer otherPlayer = connectedPlayers.get(otherPlayer);
+		InGamePlayer currentPlayer = connectedPlayers.get(this.currentPlayer);
+		InGamePlayer otherPlayer = connectedPlayers.get(otherPlayerIndex);
 		//add the outgoing cards to the other players hand
 		otherPlayer.addCardsToHand(outGoing);
 		//remove the outgoing cards from the current player's tradelist
@@ -208,7 +208,7 @@ public class OfflineGame {
 
 	public void manageAttack(Card atkCard, Card defCard, InGamePlayer defPlayer){
 		changeInTurn = true;	
-		Attack attack = new Attack(connectedPlayer.get(currentPlayer), atkCard, defPlayer, defCard);
+		Attack attack = new Attack(connectedPlayers.get(currentPlayer), atkCard, defPlayer, defCard);
 		attack.carryOutAttack();
 		if(defCard.getHealthPoints() <= 0){
 			sendCardToGraveyard(defCard);

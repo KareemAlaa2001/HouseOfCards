@@ -122,6 +122,10 @@ public class InGamePlayer {
 	public ArrayList<Card> getBattleList(){
 		return battleList;
 	}
+	
+	public void removeFromBattleList(Card cardToRemove){
+		battleList.remove(cardToRemove);
+	}
 
 	public void addToBattleList(Card cardToAdd){
 		battleList.add(cardToAdd);	
