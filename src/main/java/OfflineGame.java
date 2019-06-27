@@ -69,18 +69,21 @@ public class OfflineGame {
 			for(int attackPoints = 1; attackPoints <= 10; attackPoints++){
 				switch(attackPoints){
 					case(3):
-						ThreeCard card = new ThreeCard(atackPoints, new House(shape));
+						ThreeCard threeCard = new ThreeCard(attackPoints, new House(shape));
+						tempCardDeck.add(threeCard);
 						break;
 					case(5):
-						FiveCard card = new FiveCard(attackPoints, new House(shape));
+						FiveCard fiveCard = new FiveCard(attackPoints, new House(shape));
+						tempCardDeck.add(fiveCard);
 						break;
 					case(7):
-						SevenCard card = new SevenCard(attackPoints, new House(shape));
+						SevenCard sevenCard = new SevenCard(attackPoints, new House(shape));
+						tempCardDeck.add(sevenCard);
 						break;
 					default:
 						Card card = new Card(attackPoints, new House(shape));
+						tempCardDeck.add(card);
 				}
-				tempCardDeck.add(card);
 			}  
 		}		
 		//shuffle the deck 
