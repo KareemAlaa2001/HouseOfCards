@@ -1,7 +1,7 @@
 public class Card {
 	
 	//	models the card's attack points, usually unchanged 
-	protected static double attackPoints;
+	protected double attackPoints;
 	
 	//	models the card's health points
 	protected double healthPoints;
@@ -19,7 +19,7 @@ public class Card {
 	
 	
 	public Card(double attackPoints,  House house) {
-		Card.attackPoints = attackPoints;
+		this.attackPoints = attackPoints;
 		this.healthPoints = attackPoints;
 		this.house = house;
 		this.activePerTurnEffect = 0.0;
@@ -66,12 +66,12 @@ public class Card {
 		house.setShape(shape);
 	}
 
-	public static double getAttackPoints() {
+	public double getAttackPoints() {
 		return attackPoints;
 	}
 
-	public static void setAttackPoints(double attackPoints) {
-		Card.attackPoints = attackPoints;
+	public void setAttackPoints(double attackPoints) {
+		this.attackPoints = attackPoints;
 	}
 
 	public double getActiveFullCycleEffect() {
@@ -113,7 +113,7 @@ public class Card {
 	}
 	
 /*	
-//  	the parameter input (flag) always has to be true initially
+ 	the parameter input (flag) always has to be true initially
 	public boolean cardCanAttack(boolean flag) {
 		//threecard can attack instantly
 		if(attackPoints == 3)
@@ -124,11 +124,12 @@ public class Card {
 		}
 		else 
 			throw new IllegalArgumentException("This card has just been deployed!");
-
+		/*
 		if(flag == false)
             throw new IllegalArgumentException("This card cannot attack twice!");
         else 
             return(cardCanAttack(flag = false));
+            
 	}
 */
 	public void cardNeedsTribute() {

@@ -20,7 +20,8 @@ public class OfflineGame {
 	private boolean requestDraw;
 	// stores whether the game is over or not
 	private boolean isGameOver;
-
+	// stores which phase the game is in
+	private boolean isTradePhase;
 	// the constructor acts as the "initGame" and "assignHouses" methods in the class diagram
 	public OfflineGame(){
 		// initialize the attributes
@@ -149,9 +150,9 @@ public class OfflineGame {
 		// draw a card from the pile
 		Card card = getCardFromPile();
 		if(card != null){
-			connectedPlayer.get(currentPlayer).addToHand(getCardFromPile);
+			connectedPlayers.get(currentPlayer).addToHand(getCardFromPile());
 		}else{
-			noMoreCardsInPile = true;
+			noMoreCards = true;
 		}
 		isTradePhase = true;
 	}
@@ -205,7 +206,7 @@ public class OfflineGame {
 		otherPlayer.removeCardsFromTradeList(inComing);	
 	}
 
-	public void manageAttack(Card atkCard, Card defCard, Player defPlayer){
+	public void manageAttack(Card atkCard, Card defCard, InGamePlayer defPlayer){
 		changeInTurn = true;	
 		Attack attack = new Attack(connectedPlayer.get(currentPlayer), atkCard, defPlayer, defCard);
 		attack.carryOutAttack();
@@ -229,7 +230,7 @@ public class OfflineGame {
 		}	
 	}
 
-	private void managePlayerDeath(Player killerPlayer, Player deadPlayer){
+	private void managePlayerDeath(InGamePlayer killerPlayer, InGamePlayer deadPlayer){
 		// mainHouse -> sideHouse of other player
 		killerPlayer.addSideHouse(deadPlayer.getMainHouse());	
 		// battleList -> hand
@@ -246,7 +247,7 @@ public class OfflineGame {
 		connectedPlayers.remove(deadPlayer);
 		// check to see if only one player is alive
 		if(connectedPlayers.size() == 1){
-			isGameOver = true();
+			isGameOver = true;
 		}
 		//TODO implement deallocation of dead player's special cards
 	}

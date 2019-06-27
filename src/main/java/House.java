@@ -32,6 +32,38 @@ public class House {
 		setShape(shape);
 	}
 	
+	public void applyActiveAbility(Attack atk) throws IllegalStateException {
+		if (getActiveAbility() instanceof HeartAbility) 
+			throw new IllegalStateException("Can't use heart ability in an attack related scenario!");
+		else {
+			getActiveAbility().callAbility(atk);
+		}
+	}
+	
+	public void applyActivePerTurnAbility(Card card) throws IllegalStateException {
+		if (getActiveAbility() instanceof HeartAbility && jackAlive) {
+			HeartAbility activeHeartAbility = (HeartAbility) getActiveAbility();
+			
+			try {
+				activeHeartAbility.callHeartAbilityOnCard(card);
+			} catch (Exception e) {
+				System.err.println(e.getMessage());
+			}
+		} else throw new IllegalStateException("Can only call this method on jack of hearts ability!");
+	}
+	
+	public void applyActivePerTurnAbility(InGamePlayer player) throws IllegalStateException {
+		if (getActiveAbility() instanceof HeartAbility && !jackAlive) {
+			HeartAbility activeHeartAbility = (HeartAbility) getActiveAbility();
+			
+			try {
+				activeHeartAbility.callHeartAbilityOnPlayer(player);
+			} catch (Exception e) {
+				System.err.println(e.getMessage());
+			}
+		} else throw new IllegalStateException("Can only call this method on queen or king of hearts abilities!");
+	}
+	
 	public void killHouseCard() throws IllegalStateException {
 		if (jackAlive) {
 			setJackAlive(false);
@@ -44,10 +76,12 @@ public class House {
 		} else {
 			throw new IllegalStateException("Can't kill a house card, they're all already dead!");
 		}
-			
-		
 	}
 
+	
+	
+	
+	
 	private void createAbilities() throws IllegalArgumentException {
 		switch(this.getShape()) {
 		

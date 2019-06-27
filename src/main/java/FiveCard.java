@@ -22,11 +22,10 @@ public class FiveCard extends Card {
 			}
 
 	}
-
+/*
 	public static void doubleAttackEffect(Attack atk1,Attack atk2) {
             Attack.sendAttack(atk1);
             Attack.sendAttack(atk2);
-		
-		
 	}
+*/
 }
