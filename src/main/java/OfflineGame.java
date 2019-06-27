@@ -14,8 +14,6 @@ public class OfflineGame {
 	private Stack<Card> cardPile;
 	private boolean changeInTurn;
 	private int turnsSinceLastChange;
-	// checks if cards need to be reset
-	private boolean graveyardToPile;
 	// tells the main program if there are no cards for the player to draw from (in graveyard and cardPile)
 	private boolean noMoreCards;
 	// tells the main program to ask user for a draw
@@ -68,8 +66,19 @@ public class OfflineGame {
 		//there are four shapes and 10 cards per shape
 		for(int shape = 0; shape < 4; shape++){
 			for(int attackPoints = 1; attackPoints <= 10; attackPoints++){
-				Card card = new Card(attackPoints, new House(shape));
-				card.setAttackPoints(attackPoints);
+				switch(attackPoints){
+					case(3):
+						ThreeCard card = new ThreeCard(atackPoints, new House(shape));
+						break;
+					case(5):
+						FiveCard card = new FiveCard(attackPoints, new House(shape));
+						break;
+					case(7):
+						SevenCard card = new SevenCard(attackPoints, new House(shape));
+						break;
+					default:
+						Card card = new Card(attackPoints, new House(shape));
+				}
 				tempCardDeck.add(card);
 			}  
 		}		
@@ -127,7 +136,7 @@ public class OfflineGame {
 		/* if the cardPile wasn't empty, but became empty, set graveardToPile to true 
 		 so that at the end of the turn resetPile will be called if the graveyard isn't empty*/
 		if(cardPile.isEmpty()){
-			graveyardToPile = true;
+			resetPile();
 		}
 		return newCard;
 	}
@@ -144,7 +153,7 @@ public class OfflineGame {
 		}else{
 			noMoreCardsInPile = true;
 		}
-
+		isTradePhase = true;
 	}
 
 	public void endTurn(){
@@ -168,30 +177,45 @@ public class OfflineGame {
 				}
 			}	
 		} 
-		// check to see if the pile needs to be reset from the graveyard
-		if(graveyardToPile){
-			resetPile();
-		}
 		// currentPlayer to next player
 		currentPlayer = (currentPlayer + 1 ) % connectedPlayers.size();
 		// check to see if there was a change in the turn
-		if(changeInTurn){
+		if(!changeInTurn){
 			turnsSinceLastChange += 1;
 			if(turnsSinceLastChange >= 3){
 				promptDraw();	
 			}
 		}
-		changeInTurn = false;
 	}
 	public boolean isGameOver(){
 		return isGameOver;
 	}
-	public void switchCardsBetweenPlayers(){
-		changeInTurn = true;	
+	
+	public void switchCardsBetweenPlayers(ArrayList<Card> outGoing, ArrayList<Card> inComing, int otherPlayer){
+		changeInTurn = true;
+		InGamePlayer currentPlayer = connectedPlayers.get(currentPlayer);
+		InGamePlayer otherPlayer = connectedPlayers.get(otherPlayer);
+		//add the outgoing cards to the other players hand
+		otherPlayer.addCardsToHand(outGoing);
+		//remove the outgoing cards from the current player's tradelist
+		currentPlayer.removeCardsFromTradeList(outGoing);	
+		//add the incoming cards to the current player's hand
+		currentPlayer.addCardsToHand(inComing);
+		//remove the incoming  cards tfrom the othr player's tradelist	
+		otherPlayer.removeCardsFromTradeList(inComing);	
 	}
 
 	public void manageAttack(Card atkCard, Card defCard, Player defPlayer){
 		changeInTurn = true;	
+		Attack attack = new Attack(connectedPlayer.get(currentPlayer), atkCard, defPlayer, defCard);
+		attack.carryOutAttack();
+		if(defCard.getHealthPoints() <= 0){
+			sendCardToGraveyard(defCard);
+			defPlayer.removeFromBattleList(defCard);
+		}
+		if(defPlayer.getHealthPoints() <= 0){
+			managePlayerDeath(connectedPlayers.get(currentPlayer), defPlayer);
+		}
 	}
 
 	private void sendCardToGraveyard(Card card){
@@ -232,7 +256,7 @@ public class OfflineGame {
 	}
 
 	public void acceptDraw(){
-		isGameOver = false;
+		isGameOver = true;
 	}
 
 	public void rejectDraw(){

@@ -46,6 +46,11 @@ public class InGamePlayer {
 	public void removeFromTradeList(Card cardToRemove){
 		tradeList.remove(cardToRemove);
 	}
+	public void removeCardsFromTradeList(ArrayList<Card> cards){
+		for(int i = 0; i < cards.size(); i++){
+			removeFromTradeList(cards.get(i));
+		}	
+	}
 	// battle list methods 
 	public ArrayList<Card> getBattleList(){
 		return battleList;
@@ -66,7 +71,7 @@ public class InGamePlayer {
 	
 	public void addCardsToHand(ArrayList<Card> cards){
 		for(int i = 0; i < cards.size(); i++){
-			hand.add(cards.get(i)):
+			addToHand(cards.get(i)):
 		}
 	}
 
