@@ -39,6 +39,6 @@ public class SpadeAbility extends Ability{
 	
 	//	reducing damage received by king when it is attacked when this abiltiy is called
 	private void reduceKingDamage(Attack atk) {
-		atk.setAttackDamage(atk.getAttackDamage() * this.getGeneralModifier());
+		atk.setAttackDamage(atk.getAttackDamage() * KING_MODIFIER);
 	}
 }

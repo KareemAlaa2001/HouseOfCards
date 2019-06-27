@@ -16,9 +16,18 @@ public class InGamePlayer {
 	
 	// maximum cards allowed in trade list
 	private static final int MAX_TRADE_LIST = 7;
+	
+	public static final int MAX_HAND = 7;
+	
 	// starting health points for each player
 	private static final int START_HEALTH_POINTS = 5000;
-
+	
+	public static final int JACK_THRESHOLD = 4000;
+	
+	public static final int QUEEN_THRESHOLD = 2600;
+	
+	public static final int KING_THRESHOLD = 0;
+	
 	public InGamePlayer(House mainHouse){
 		this.mainHouse = mainHouse;
 		sideHouses = new ArrayList<House>();
@@ -29,6 +38,63 @@ public class InGamePlayer {
 		healthPoints = START_HEALTH_POINTS;
 		activePerTurnEffect = 0;
 		activeFullCycleEffect = 0;
+	}
+	
+	public void killHouseCard() {
+		if (this.getMainHouse().isJackAlive() && healthBelowJackThreshold()) {
+			this.setHealthPoints(JACK_THRESHOLD);
+			
+		} else if (this.getMainHouse().isQueenAlive() && healthBelowQueenThreshold()) {
+			this.setHealthPoints(QUEEN_THRESHOLD);
+			
+		} else if (this.getMainHouse().isKingAlive() && healthBelowKingThreshold()) {
+			this.setHealthPoints(KING_THRESHOLD);
+			
+		} else throw new IllegalStateException("Health didn't fall beneath house card boundary; shouldn't call this method to kill a house card!");
+		
+		this.getMainHouse().killHouseCard();
+	}
+	
+	public boolean healthBelowHouseCardThreshold() {
+		
+		if (this.getMainHouse().isKingAlive()) {
+			
+			if (this.getHealthPoints() <= KING_THRESHOLD) return true;
+			
+			else if (this.getMainHouse().isQueenAlive()) {
+				
+				if (this.getHealthPoints() <= QUEEN_THRESHOLD) return true;
+				
+				else if (this.getMainHouse().isJackAlive()) {
+					return healthBelowJackThreshold();
+				}
+			}
+		}
+		return false;
+	}
+	
+	private boolean healthBelowJackThreshold() {
+		if (this.getMainHouse().isJackAlive()) {
+			if (this.getHealthPoints() <= JACK_THRESHOLD) return true;
+			else return false;
+		} else throw new IllegalStateException("should only call this method if jack is alive!");
+		
+	}
+	
+	private boolean healthBelowQueenThreshold() {
+		if (this.getMainHouse().isQueenAlive()) {
+			if (this.getHealthPoints() <= QUEEN_THRESHOLD) return true;
+			else return false;
+		} else throw new IllegalStateException("should only call this method if queen is alive!");
+		
+	}
+	
+	private boolean healthBelowKingThreshold() {
+		if (this.getMainHouse().isKingAlive()) {
+			if (this.getHealthPoints() <= KING_THRESHOLD) return true;
+			else return false;
+		} else throw new IllegalStateException("should only call this method if king is alive!");
+		
 	}
 
 	public ArrayList<Card> getTradeList(){
@@ -122,6 +188,8 @@ public class InGamePlayer {
 	
 	public void changeHealthPoints(double x) {
 		healthPoints += x * InGamePlayer.HEALTH_MULTIPLIER;
+		
+		if (healthBelowHouseCardThreshold()) killHouseCard();
 	}
 
 	public ArrayList<House> getAllHouses() {

@@ -17,7 +17,7 @@ public  class Attack {
 	private Card defCard;
 	
 	//	constructor for initiating an attack on a card 
-	public Attack(Card atkCard, InGamePlayer atkPlayer, InGamePlayer defPlayer, Card defCard) throws IllegalArgumentException {
+	public Attack(InGamePlayer atkPlayer, Card atkCard, InGamePlayer defPlayer, Card defCard) throws IllegalArgumentException {
 		
 		for ( House atkHouse: atkPlayer.getAllHouses()) {
 			for (House defHouse : defPlayer.getAllHouses()) {
@@ -33,11 +33,11 @@ public  class Attack {
 	}
 	
 	//	constructor for initiating an attack on a card 
-	public Attack(Card atkCard, InGamePlayer atkPlayer, InGamePlayer defPlayer) throws IllegalArgumentException {
+	public Attack(InGamePlayer atkPlayer, Card atkCard, InGamePlayer defPlayer) throws IllegalArgumentException {
 		
 		for ( House atkHouse: atkPlayer.getAllHouses()) {
 			for (House defHouse : defPlayer.getAllHouses()) {
-				if (atkHouse.equals(defHouse)) throw new IllegalArgumentException("Attakcing player can't attack his own house!");
+				if (atkHouse.equals(defHouse)) throw new IllegalArgumentException("Attacking player can't attack his own house!");
 			}
 		}
 		
@@ -106,16 +106,47 @@ public  class Attack {
 	
 	public void carryOutAttack() {	
 		applyRelevantAbilities();
-		applyRelevantHealthChanges();
+		executeAttack();
+	
 	}
 	
-	private void applyRelevantHealthChanges() {
+	private void executeAttack() {
 		if (isAttackOnPlayer()) {
-			getDefendingPlayer().changeHealthPoints(getAttackDamage());
+			executeAttackOnPlayer();
 		} else {
-			getDefendingCard().changeHealthPoints(getAttackDamage());
-			getAttackingCard().changeHealthPoints(getDefendingCard().getAttackPoints());
+			executeAttackOnCard();
 		}
+	}
+	
+	private void executeAttackOnPlayer() {
+		getDefendingPlayer().changeHealthPoints(-getAttackDamage());
+	}
+	
+	private void executeAttackOnCard() {
+		manageDefendingCardHealthChanges();
+		manageAttackingCardHealthChanges();
+	}
+	
+	private void manageDefendingCardHealthChanges() {
+		if (getDefendingCard() instanceof FiveCard) {
+			FiveCard defFiveCard = (FiveCard) getDefendingCard();
+			
+			if (defFiveCard.getBarrier()) defFiveCard.setBarrier(false);
+			else defFiveCard.changeHealthPoints(-getAttackDamage());
+		
+		} else {
+			getDefendingCard().changeHealthPoints(-getAttackDamage());
+		}
+	}
+	
+	private void manageAttackingCardHealthChanges() {
+		if (getAttackingCard() instanceof FiveCard) {
+			FiveCard atkFiveCard = (FiveCard) getAttackingCard();
+			
+			if (atkFiveCard.getBarrier()) atkFiveCard.setBarrier(false);
+			else atkFiveCard.changeHealthPoints(-getAttackDamage());
+			
+		} else getAttackingCard().changeHealthPoints(-getAttackDamage());
 	}
 	
 	private void applyRelevantAbilities() {
