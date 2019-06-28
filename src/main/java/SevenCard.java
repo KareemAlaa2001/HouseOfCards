@@ -19,7 +19,7 @@ public class SevenCard extends Card{
     public void switchEffect(Card sevenCard, Card card) {
 			
 		if(getSwitchCondition() == true) {
-		if(Card.attackPoints == 7) {
+		if(sevenCard.attackPoints == 7) {
 		temp = card;
 		card = sevenCard;
 		sevenCard = temp;
