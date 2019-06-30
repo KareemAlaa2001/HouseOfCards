@@ -40,7 +40,7 @@ public class InGamePlayer {
 		activeFullCycleEffect = 0;
 	}
 	
-	public void killHouseCard() {
+	private void killHouseCard() {
 		if (this.getMainHouse().isJackAlive() && healthBelowJackThreshold()) {
 			this.setHealthPoints(JACK_THRESHOLD);
 			
@@ -55,7 +55,7 @@ public class InGamePlayer {
 		this.getMainHouse().killHouseCard();
 	}
 	
-	public boolean healthBelowHouseCardThreshold() {
+	private boolean healthBelowHouseCardThreshold() {
 		
 		if (this.getMainHouse().isKingAlive()) {
 			

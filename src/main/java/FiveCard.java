@@ -1,6 +1,8 @@
 
 public class FiveCard extends Card {
 
+	private int attacksThisTurn;
+	
 	public FiveCard(double attackPoints, House house) {
 		super(attackPoints, house);
 	}
@@ -22,10 +24,16 @@ public class FiveCard extends Card {
 			}
 
 	}
-/*
-	public static void doubleAttackEffect(Attack atk1,Attack atk2) {
-            Attack.sendAttack(atk1);
-            Attack.sendAttack(atk2);
+
+	public int getAttacksMadeThisTurn() {
+		return this.attacksThisTurn;
 	}
-*/
+	
+	public void resetAttacksMadeThisTurn() {
+		this.attacksThisTurn = 0;
+	}
+	
+	public void incrementAttacksMadeThisTurn() {
+		this.attacksThisTurn++;
+	}
 }

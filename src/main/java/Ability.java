@@ -29,6 +29,7 @@ public abstract class Ability {
 		this.generalModifier = generalModifier;
 	}
 	
+	//	checks if double entered is in the array of valid modifiers, since each kind of ability has a defined set of modifiers
 	protected boolean checkModifierValid(double genMod, double[] validMods) {
 		for (double mod: validMods) {
 			if (mod == genMod) return true;
