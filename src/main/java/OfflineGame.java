@@ -252,7 +252,57 @@ public class OfflineGame {
 		if(connectedPlayers.size() == 1){
 			isGameOver = true;
 		}
-		//TODO implement deallocation of dead player's special cards
+		deallocateDeadPlayerSpecialCards(deadPlayer.getMainHouse());
+	}
+
+	private void deallocateDeadPlayerSpecialCards(House house){
+		// loop through each card in each player's tradelist 
+		for(int player = 0; player < NUM_OF_PLAYERS; player++){
+			ArrayList<Card> tradeList = connectedPlayers.get(player).getTradeList();
+			for(int card = 0; card < tradeList.size(); card++){
+				if(isSpecialCard(tradeList.get(card)) && tradeList.get(card).getHouse().getShape() == house.getShape()){
+					connectedPlayers.get(player).addToBattleList(unspecializeCard(tradeList.get(card)));
+					connectedPlayers.get(player).removeFromTradeList(tradeList.get(card));
+				}
+			}
+		}
+		// go through graveyard
+		for(int card = 0; card < graveyard.size(); card++){
+			if(isSpecialCard(graveyard.get(card)) && graveyard.get(card).getHouse().getShape() == house.getShape()){
+				graveyard.add(card, unspecializeCard(graveyard.get(card)));
+				graveyard.remove(card + 1);
+			}
+		}
+		// go through cardpile
+		Stack<Card> tempStack = new Stack<Card>();
+		while(!cardPile.isEmpty()){
+			tempStack.push(cardPile.pop());
+		}
+		
+		while(!tempStack.isEmpty()){
+			Card tempCard = tempStack.pop();
+			if(isSpecialCard(tempCard) && tempCard.getHouse().getShape() == house.getShape()){
+				tempCard = unspecializeCard(tempCard);
+			}
+			cardPile.push(tempCard);
+		}
+	}
+
+	private boolean isSpecialCard(Card card){
+		if(card instanceof AceCard || card instanceof ThreeCard || card instanceof FiveCard || card instanceof SevenCard){
+			return true;
+		}
+		return false;
+	}
+
+	private Card unspecializeCard(Card specialCard){
+		Card blankCard = new Card(specialCard.getAttackPoints(), specialCard.getHouse());
+		blankCard.setActiveFullCycleEffect(specialCard.getActiveFullCycleEffect());
+		blankCard.setActivePerTurnEffect(specialCard.getActivePerTurnEffect());
+		blankCard.setCanAttack(specialCard.getCanAttack());
+		blankCard.setHealthPoints(specialCard.getHealthPoints());
+		blankCard.setNeedsTribute(specialCard.getNeedsTribute());
+		return blankCard;
 	}
 
 	private void promptDraw(){
