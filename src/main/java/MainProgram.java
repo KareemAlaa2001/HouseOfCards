@@ -10,7 +10,7 @@ public class MainProgram{
     // returns the winning player, or the players in a draw
     private static ArrayList<InGamePlayer> loop(OfflineGame game){
         while(!game.isGameOver()){
-            game.beginTurn();
+            game.beginTurn(); 
             // here will lie the basic game turn logic after making the GUI classes
             game.endTurn();
         }

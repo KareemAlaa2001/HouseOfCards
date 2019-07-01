@@ -214,7 +214,7 @@ public class InGamePlayer {
 	// returns true if the ace is 
 	public boolean aceInHand() {
 		 for(int i = 1;i< hand.size();i++) {
-			 if(hand.get(i).attackPoints == 1 && hand.get(i).getHouse() == this.getMainHouse()){
+			 if(hand.get(i).getAttackPoints() == 1 && hand.get(i).getHouse() == this.getMainHouse()){
 				 return true;
 			 }
 		 }

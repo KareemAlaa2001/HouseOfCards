@@ -3,7 +3,7 @@ public class ThreeCard extends Card{
 
 	public ThreeCard(double attackPoints, House house) {
 		super(attackPoints, house);
-		this.canAttack = true;	
+		this.setCanAttack(true);
 	}
 	/*
 // the method below can direct attack any player over troops, and the player who triggers that effect can also attack him/herself.

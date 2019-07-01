@@ -1,31 +1,31 @@
 public class Card {
 	
 	//	models the card's attack points, usually unchanged 
-	protected double attackPoints;
+	private double attackPoints;
 	
 	//	models the card's health points
-	protected double healthPoints;
+	private double healthPoints;
 	
 	//	models the number by which the card's health changes every passing turn, no matter whose turn it is
-	protected double activePerTurnEffect;
+	private double activePerTurnEffect;
 	
 	/*	models the number by which the card's health changes every full cycle, where a cycle is completed every time
 	 * 	the turn of the person to whom the card's house belongs */
-	protected double activeFullCycleEffect;
+	private double activeFullCycleEffect;
 	
 	//	models the card's house. can only be one of the four houses in the game
-	protected House house;
+	private House house;
 	
 	//	represents whether the card needs a tribute. Is true for cards with AttackPoints 8 or greater
-	protected boolean needsTribute;
+	private boolean needsTribute;
 	
 	/*	represents whether the card can make an attack.
 	 *  A normal card can only attack once per turn so this is set to false after an attack
 	 */
-	protected boolean canAttack;
+	private boolean canAttack;
 	
 	//	Description of the card including its house and its ability for use in the UI
-	protected String description;
+	private String description;
 	
 	/*	Constructor for making a new card. attackPoints are passed in where healthPoints are also set to this value\
 	 * 	Card's house is also passed as a parameter, and other variables are set to their default values. 
@@ -171,7 +171,8 @@ public class Card {
             
 	}
 */
-	public void calculateCardNeedsTribute() {
+	//	method for use in the contructor to set needsTribute depenging on attackPoints value
+	private void calculateCardNeedsTribute() {
        if(attackPoints >= 8)
     	   needsTribute = false;
        else

@@ -299,7 +299,7 @@ public class OfflineGame {
 		Card blankCard = new Card(specialCard.getAttackPoints(), specialCard.getHouse());
 		blankCard.setActiveFullCycleEffect(specialCard.getActiveFullCycleEffect());
 		blankCard.setActivePerTurnEffect(specialCard.getActivePerTurnEffect());
-		blankCard.setCanAttack(specialCard.getCanAttack());
+		blankCard.setCanAttack(specialCard.canAttack());
 		blankCard.setHealthPoints(specialCard.getHealthPoints());
 		blankCard.setNeedsTribute(specialCard.getNeedsTribute());
 		return blankCard;

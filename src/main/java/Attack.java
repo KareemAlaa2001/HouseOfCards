@@ -8,7 +8,7 @@ public  class Attack {
 	private InGamePlayer atkPlayer;
 	
 	//	represents the damage the attack will inflict
-	public double attackDamage;
+	private double attackDamage;
 	
 	//	Player receiving the attack. Only used if the attack is directed towards the player himself not his card.
 	private InGamePlayer defPlayer;
@@ -18,6 +18,9 @@ public  class Attack {
 	
 	//	constructor for initiating an attack on a card 
 	public Attack(InGamePlayer atkPlayer, Card atkCard, InGamePlayer defPlayer, Card defCard) throws IllegalArgumentException {
+		
+		if (!atkCard.canAttack()) throw new IllegalArgumentException(
+				"Card passed as attacking card can't make any attacks this turn!");
 		
 		this.setAttackingCard(atkCard);
 		this.setAttackingPlayer(atkPlayer);
@@ -29,12 +32,19 @@ public  class Attack {
 	//	constructor for initiating an attack on a player where defending card is set to null 
 	public Attack(InGamePlayer atkPlayer, Card atkCard, InGamePlayer defPlayer) throws IllegalArgumentException {
 		
+
+		if (!atkCard.canAttack()) throw new IllegalArgumentException(
+				"Card passed as attacking card can't make any attacks this turn!");
+		
 		this.setAttackingCard(atkCard);
 		this.setAttackingPlayer(atkPlayer);
 		this.setAttackDamage(this.getAttackingCard().getAttackPoints());
 		this.setDefendingPlayer(defPlayer);
 		this.setDefendingCard(null);
 	}
+	
+	
+	
 	
 	/*	main method to use to carry out the changes made by this attack instnace. first applies abilities then health changes
 	 *	manages attacking card's ability to attack again this turn */
@@ -50,8 +60,6 @@ public  class Attack {
 		if (this.getAttackingCard() instanceof FiveCard) {
 			FiveCard fc = (FiveCard) this.getAttackingCard();
 			fc.incrementAttacksMadeThisTurn();
-
-			if (fc.getAttacksMadeThisTurn() == 2) fc.setCanAttack(false);
 		} else this.getAttackingCard().setCanAttack(false);
 	}
 	
@@ -81,7 +89,7 @@ public  class Attack {
 		if (getDefendingCard() instanceof FiveCard) {
 			FiveCard defFiveCard = (FiveCard) getDefendingCard();
 			
-			if (defFiveCard.getBarrier()) defFiveCard.setBarrier(false);
+			if (defFiveCard.hasBarrier()) defFiveCard.setBarrier(false);
 			else defFiveCard.changeHealthPoints(-getAttackDamage());
 		
 		} else {
@@ -95,7 +103,7 @@ public  class Attack {
 		if (getAttackingCard() instanceof FiveCard) {
 			FiveCard atkFiveCard = (FiveCard) getAttackingCard();
 			
-			if (atkFiveCard.getBarrier()) atkFiveCard.setBarrier(false);
+			if (atkFiveCard.hasBarrier()) atkFiveCard.setBarrier(false);
 			else atkFiveCard.changeHealthPoints(-getAttackDamage());
 			
 		} else getAttackingCard().changeHealthPoints(-getAttackDamage());
