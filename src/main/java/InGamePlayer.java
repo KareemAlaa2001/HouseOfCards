@@ -200,6 +200,18 @@ public class InGamePlayer {
 		
 		if (healthBelowHouseCardThreshold()) killHouseCard();
 	}
+	
+	public boolean battleListEmpty() {
+		return this.getBattleList().isEmpty();
+	}
+	
+	public boolean cardInBattleList(Card card) {
+		for (Card battleCard: this.getBattleList()) {
+			if (battleCard.equals(card)) return true;
+		}
+		
+		return false;
+	}
 
 	public ArrayList<House> getAllHouses() {
 		ArrayList<House> allHouses = new ArrayList<House>();

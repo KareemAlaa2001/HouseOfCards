@@ -18,9 +18,12 @@ public  class Attack {
 	
 	//	constructor for initiating an attack on a card 
 	public Attack(InGamePlayer atkPlayer, Card atkCard, InGamePlayer defPlayer, Card defCard) throws IllegalArgumentException {
+		verifyCanAttack(atkCard);
+		if (isSelfAttack(atkPlayer, defPlayer)) throw new IllegalArgumentException("Can't make a player attack his own card!");
+		if (!atkPlayer.cardInBattleList(atkCard)) throw new IllegalArgumentException("Attacking card isn't in attacking player's battle list!");
+		if (defCard == null) throw new IllegalArgumentException("Can't set defending card to null, use other constructor!");
+		if (!defPlayer.cardInBattleList(defCard)) throw new IllegalArgumentException("Defending card isn't in defending player's battle list!"); 
 		
-		if (!atkCard.canAttack()) throw new IllegalArgumentException(
-				"Card passed as attacking card can't make any attacks this turn!");
 		
 		this.setAttackingCard(atkCard);
 		this.setAttackingPlayer(atkPlayer);
@@ -31,10 +34,10 @@ public  class Attack {
 	
 	//	constructor for initiating an attack on a player where defending card is set to null 
 	public Attack(InGamePlayer atkPlayer, Card atkCard, InGamePlayer defPlayer) throws IllegalArgumentException {
-		
-
-		if (!atkCard.canAttack()) throw new IllegalArgumentException(
-				"Card passed as attacking card can't make any attacks this turn!");
+		verifySelfAttack(atkPlayer, atkCard, defPlayer);
+		verifyCanAttack(atkCard);
+		if (!defPlayer.battleListEmpty() && !(atkCard instanceof ThreeCard)) 
+			throw new IllegalArgumentException("Can't directly attack a player with cards in his battle list unless a three card is used!");
 		
 		this.setAttackingCard(atkCard);
 		this.setAttackingPlayer(atkPlayer);
@@ -43,7 +46,19 @@ public  class Attack {
 		this.setDefendingCard(null);
 	}
 	
+	private void verifyCanAttack(Card atkCard) {
+		if (!atkCard.canAttack()) throw new IllegalArgumentException(
+				"Card passed as attacking card can't make any attacks this turn!");
+	}
 	
+	private void verifySelfAttack(InGamePlayer atkPlayer,  Card atkCard, InGamePlayer defPlayer) {	
+		if (isSelfAttack(atkPlayer,defPlayer) && !(atkCard instanceof ThreeCard)) 
+			throw new IllegalArgumentException("Can't attack self unless using a ThreeCard!");
+	}
+	
+	private boolean isSelfAttack(InGamePlayer atk, InGamePlayer def) {
+		return atk.equals(def);
+	}
 	
 	
 	/*	main method to use to carry out the changes made by this attack instnace. first applies abilities then health changes

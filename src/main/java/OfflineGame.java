@@ -31,6 +31,7 @@ public class OfflineGame {
 		changeInTurn = false;
 		turnsSinceLastChange = 0;
 		connectedPlayers = new ArrayList<InGamePlayer>();
+		deadPlayers = new ArrayList<InGamePlayer>();
 		
 		// get a random list of houses
 		ArrayList<House> randomHouses = generateHouses();
@@ -317,4 +318,6 @@ public class OfflineGame {
 		turnsSinceLastChange = 0;
 		changeInTurn = true;
 	}
+	
+	
 }
