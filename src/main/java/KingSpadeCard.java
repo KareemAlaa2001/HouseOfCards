@@ -1,4 +1,4 @@
-
+//	incomplete class, meant for a special kind of card which can be deployed
 public class KingSpadeCard extends InGamePlayer{
     
 	double attackPoints = 15;

@@ -1,7 +1,9 @@
 import java.util.ArrayList;
 
+//  main program for singleplayer offline version of the game, no GUI built yet
 public class MainProgram{
 
+    //  method to start the game
     private static OfflineGame startGame(){
         OfflineGame game = new OfflineGame();
         return game;
