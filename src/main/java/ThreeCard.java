@@ -1,4 +1,4 @@
-
+//	class created by mostafamohmd
 public class ThreeCard extends Card{
 
 	public ThreeCard(double attackPoints, House house) {

@@ -3,6 +3,7 @@
  * 	health points by 1 per turn as well as jack ability and king applies half the damage of the
  * 	attack to the attacking player's health points as well as the other abilities 
  * 	*/
+//	file built by kareemalaa2001
 public class ClubAbility extends Ability {
 	
 	//	constant for queen lingering poison ability modifier where it reduces health by 1 every turn

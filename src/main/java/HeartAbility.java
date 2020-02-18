@@ -1,5 +1,6 @@
 /*	This class represents the heart ability, which is a bit different from other abilities because it doesn't need an attack
  * 	to happen for it to be called. */
+//	file built by kareemalaa2001
 public class HeartAbility extends Ability{
 
 	//	boolean to check if ability is applied every full cycle (T) or every turn (F), used to distinguish between king and queen abilities
@@ -70,5 +71,6 @@ public class HeartAbility extends Ability{
 	public void setFullCycle(boolean isFullCycle) {
 		this.isFullCycle = isFullCycle;
 	}
+
 
 }

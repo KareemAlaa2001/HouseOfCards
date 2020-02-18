@@ -1,6 +1,7 @@
 /*	Special kind of card with the ability to attack twice in one turn. It also has a barrier which breaks 
  * 	instead of the card receiving damage when it receives an attack or attacks another card. The barrier 
  * 	only breaks once then doesn't act anymore. 	 */
+//	file built by mostafamohmd
 public class FiveCard extends Card {
 
 	//	tracks number of attacks made this turn, maximum of 2 attacks per turn. number is reset to 0 every turn

@@ -1,3 +1,4 @@
+//	File is created and maintained by a-elhawary
 import java.util.ArrayList;
 
 //  main program for singleplayer offline version of the game, no GUI built yet
@@ -6,6 +7,7 @@ public class MainProgram{
     //  method to start the game
     private static OfflineGame startGame(){
         OfflineGame game = new OfflineGame();
+        System.out.println("Game started");
         return game;
     }
 
@@ -23,5 +25,6 @@ public class MainProgram{
         // should first display menus and check selections, after making the GUI classes
         OfflineGame game = startGame();
         ArrayList<InGamePlayer> winningPlayers = loop(game);
+        System.out.println("Program run successfully");
     }
 }

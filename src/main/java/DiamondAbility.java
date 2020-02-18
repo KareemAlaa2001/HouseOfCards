@@ -1,4 +1,5 @@
 /*	Class to represent diamond suit abilities which all reduce damage received from an attack*/
+//	file built by kareemalaa2001
 public class DiamondAbility extends Ability{
 	
 	//	all three modifiers are applied to attack damage of an attack to act as a damage reduction effect

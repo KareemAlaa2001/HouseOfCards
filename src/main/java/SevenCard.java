@@ -1,3 +1,4 @@
+//	file built by mostafamohmd
 public class SevenCard extends Card{
 
 	private Card temp;

@@ -1,3 +1,4 @@
+//	file built by kareemalaa2001
 public class Card {
 	
 	//	models the card's attack points, usually unchanged 

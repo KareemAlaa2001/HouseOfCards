@@ -1,5 +1,7 @@
 /*	Class to represent spade ability which is either an increase in attack points for Jack and Queen 
  *  a reduction in attack points to defend the King of Spades card  */
+//	file built by kareemalaa2001
+
 public class SpadeAbility extends Ability{
 	//  boolean to check whether its an attack ability
 	private boolean isAttack;

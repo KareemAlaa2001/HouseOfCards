@@ -1,6 +1,7 @@
 /* 	This is the abstract super class for the implementation of the abilities used by suits
  *	it is subclassed by four classes for the four suits of a card deck. Abilities can either
  *	be used to enhance an attack, reduce received damage in defence or apply a per turn effect	*/
+//	file built by kareemalaa2001
 public abstract class Ability {
 
 	/*	this double represents the general modifier by which an ability either adds to an attack, 
